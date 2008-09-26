@@ -14,18 +14,41 @@ using GoogleApi;
 
 namespace PicasaUpload
 {
+	/// <summary>
+	/// This form is the main login form for picasa publisher.  It also allows the user to select the album to upload to.
+	/// </summary>
 	public partial class PicasaPubliserForm : Form
 	{
+		/// <summary>
+		/// Constructor
+		/// </summary>
 		public PicasaPubliserForm()
 		{
 			InitializeComponent();
 		}
 
+		/// <summary>
+		/// The GoogleAuthorizationToken that is used to communicate with google:
+		/// </summary>
 		private GoogleAuthorizationToken _googleAuthKey = null;
 		public GoogleAuthorizationToken GoogleAuthKey { get { return _googleAuthKey; } set { _googleAuthKey = value; } }
 
+		/// <summary>
+		/// The ID of the album that the user has selected.
+		/// </summary>
 		private string _selectedAlbumId = string.Empty;
 		public string SelectedAlbumId { get { return _selectedAlbumId; } }
+
+		/// <summary>
+		/// Allows the user of the form to specify a remembered email address:
+		/// </summary>
+		public string UserEmail { get { return _txtEmail.Text; } set { _txtEmail.Text = value; } }
+
+		/// <summary>
+		/// Allows the parent of the form to know if the user wants to remember their email between sessions:
+		/// </summary>
+		public bool RememberUserEmail { get { return _cboRememberEmail.Checked; } set { _cboRememberEmail.Checked = value; } }
+
 
 
 		/// <summary>
@@ -33,18 +56,19 @@ namespace PicasaUpload
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void _cmdTestLogin_Click(object sender, EventArgs e)
+		private void _cmdLogin_Click(object sender, EventArgs e)
 		{
 			Login();
-
 		}
 
-		private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-		{
-		}
-
+		/// <summary>
+		/// User press the OK button:
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void _cmdOk_Click(object sender, EventArgs e)
 		{
+			//If the user has not logged in yet, then log them in, so they can select an album.
 			if (_googleAuthKey == null)
 			{
 				Login();
@@ -54,6 +78,7 @@ namespace PicasaUpload
 
 			if (_cboAlbumSelect.SelectedValue == null)
 			{
+				//If the user has not selected an album, and they haven't entered a useful name.
 				if (string.IsNullOrEmpty(_cboAlbumSelect.Text))
 				{
 					MessageBox.Show("Select an album, or enter the name of a new album in the Album combobox", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -71,11 +96,15 @@ namespace PicasaUpload
 			}
 		}
 
+		/// <summary>
+		/// This function will log the user into Google.
+		/// </summary>
 		private void Login()
 		{
 			string email = _txtEmail.Text;
 			string password = _txtPassword.Text;
 
+			//Validate user input:
 			if (string.IsNullOrEmpty(email))
 			{
 				MessageBox.Show("Please enter your Picasa Web Albums email address.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -87,9 +116,13 @@ namespace PicasaUpload
 				return;
 			}
 
+			//Set the cursor to wait so user knows something is happenning:
 			this.Cursor = Cursors.WaitCursor;
+
+			//Actually try logging in:
 			GoogleApi.Authentication.AuthenticationResult result = GoogleApi.Authentication.Authenticate(GoogleApi.Authentication.AccountTypes.GOOGLE, email, password, GoogleApi.Authentication.Services.PICASA_WEB_ALBUMS, "MLS-PicassaLivePublisher-1");
 
+			//Check for error, and display the error:
 			if (result.IsSuccessful)
 			{
 				_googleAuthKey = result.AuthKey;
@@ -105,6 +138,7 @@ namespace PicasaUpload
 				MessageBox.Show(result.GetErrorMessage());
 			}
 
+			//Reset our cursor:
 			this.Cursor = Cursors.Default;
 		}
 	}

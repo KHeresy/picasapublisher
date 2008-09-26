@@ -29,7 +29,7 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			this._cmdTestLogin = new System.Windows.Forms.Button();
+			this._cmdLogin = new System.Windows.Forms.Button();
 			this.label1 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
 			this._txtEmail = new System.Windows.Forms.TextBox();
@@ -40,19 +40,20 @@
 			this._cboAlbumSelect = new System.Windows.Forms.ComboBox();
 			this.albumDataTableBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this._ttAlbum = new System.Windows.Forms.ToolTip(this.components);
+			this._cboRememberEmail = new System.Windows.Forms.CheckBox();
 			((System.ComponentModel.ISupportInitialize)(this.albumDataTableBindingSource)).BeginInit();
 			this.SuspendLayout();
 			// 
-			// _cmdTestLogin
+			// _cmdLogin
 			// 
-			this._cmdTestLogin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this._cmdTestLogin.Location = new System.Drawing.Point(208, 58);
-			this._cmdTestLogin.Name = "_cmdTestLogin";
-			this._cmdTestLogin.Size = new System.Drawing.Size(75, 23);
-			this._cmdTestLogin.TabIndex = 3;
-			this._cmdTestLogin.Text = "Login";
-			this._cmdTestLogin.UseVisualStyleBackColor = true;
-			this._cmdTestLogin.Click += new System.EventHandler(this._cmdTestLogin_Click);
+			this._cmdLogin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this._cmdLogin.Location = new System.Drawing.Point(208, 58);
+			this._cmdLogin.Name = "_cmdLogin";
+			this._cmdLogin.Size = new System.Drawing.Size(75, 23);
+			this._cmdLogin.TabIndex = 4;
+			this._cmdLogin.Text = "Login";
+			this._cmdLogin.UseVisualStyleBackColor = true;
+			this._cmdLogin.Click += new System.EventHandler(this._cmdLogin_Click);
 			// 
 			// label1
 			// 
@@ -134,11 +135,10 @@
 			this._cboAlbumSelect.Location = new System.Drawing.Point(74, 87);
 			this._cboAlbumSelect.Name = "_cboAlbumSelect";
 			this._cboAlbumSelect.Size = new System.Drawing.Size(209, 21);
-			this._cboAlbumSelect.TabIndex = 4;
+			this._cboAlbumSelect.TabIndex = 5;
 			this._ttAlbum.SetToolTip(this._cboAlbumSelect, "After loggin in, select the album you wish to \r\nPublish to, or type the name of a" +
 					" new one.");
 			this._cboAlbumSelect.ValueMember = "Id";
-			this._cboAlbumSelect.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
 			// 
 			// albumDataTableBindingSource
 			// 
@@ -150,6 +150,16 @@
 			this._ttAlbum.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
 			this._ttAlbum.ToolTipTitle = "Album Tip";
 			// 
+			// _cboRememberEmail
+			// 
+			this._cboRememberEmail.AutoSize = true;
+			this._cboRememberEmail.Location = new System.Drawing.Point(74, 58);
+			this._cboRememberEmail.Name = "_cboRememberEmail";
+			this._cboRememberEmail.Size = new System.Drawing.Size(105, 17);
+			this._cboRememberEmail.TabIndex = 3;
+			this._cboRememberEmail.Text = "Remember Email";
+			this._cboRememberEmail.UseVisualStyleBackColor = true;
+			// 
 			// PicasaPubliserForm
 			// 
 			this.AcceptButton = this._cmdOk;
@@ -157,6 +167,7 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this._cmdCancel;
 			this.ClientSize = new System.Drawing.Size(295, 151);
+			this.Controls.Add(this._cboRememberEmail);
 			this.Controls.Add(this._cboAlbumSelect);
 			this.Controls.Add(this._cmdCancel);
 			this.Controls.Add(this._cmdOk);
@@ -165,7 +176,7 @@
 			this.Controls.Add(this._txtEmail);
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.label1);
-			this.Controls.Add(this._cmdTestLogin);
+			this.Controls.Add(this._cmdLogin);
 			this.MinimumSize = new System.Drawing.Size(303, 185);
 			this.Name = "PicasaPubliserForm";
 			this.ShowIcon = false;
@@ -180,7 +191,7 @@
 
 		#endregion
 
-		private System.Windows.Forms.Button _cmdTestLogin;
+		private System.Windows.Forms.Button _cmdLogin;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.TextBox _txtEmail;
@@ -191,6 +202,7 @@
 		private System.Windows.Forms.ComboBox _cboAlbumSelect;
 		private System.Windows.Forms.BindingSource albumDataTableBindingSource;
 		private System.Windows.Forms.ToolTip _ttAlbum;
+		private System.Windows.Forms.CheckBox _cboRememberEmail;
 
 	}
 }

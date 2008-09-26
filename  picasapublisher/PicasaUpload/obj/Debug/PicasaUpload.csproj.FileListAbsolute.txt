@@ -8,3 +8,13 @@ F:\Documents\SourceCode\PicasaUpload\PicasaUpload\obj\Debug\PicasaUpload.PicasaP
 F:\Documents\SourceCode\PicasaUpload\PicasaUpload\obj\Debug\PicasaUpload.csproj.GenerateResource.Cache
 F:\Documents\SourceCode\PicasaUpload\PicasaUpload\bin\Debug\GoogleApi.dll
 F:\Documents\SourceCode\PicasaUpload\PicasaUpload\bin\Debug\GoogleApi.pdb
+F:\Documents\SourceCode\PicasaUpload\source\PicasaUpload\bin\Debug\PicasaUpload.dll
+F:\Documents\SourceCode\PicasaUpload\source\PicasaUpload\bin\Debug\PicasaUpload.pdb
+F:\Documents\SourceCode\PicasaUpload\source\PicasaUpload\bin\Debug\GoogleApi.dll
+F:\Documents\SourceCode\PicasaUpload\source\PicasaUpload\bin\Debug\Microsoft.WindowsLive.PublishPlugins.dll
+F:\Documents\SourceCode\PicasaUpload\source\PicasaUpload\bin\Debug\GoogleApi.pdb
+F:\Documents\SourceCode\PicasaUpload\source\PicasaUpload\obj\Debug\ResolveAssemblyReference.cache
+F:\Documents\SourceCode\PicasaUpload\source\PicasaUpload\obj\Debug\PicasaUpload.PicasaPubliserForm.resources
+F:\Documents\SourceCode\PicasaUpload\source\PicasaUpload\obj\Debug\PicasaUpload.csproj.GenerateResource.Cache
+F:\Documents\SourceCode\PicasaUpload\source\PicasaUpload\obj\Debug\PicasaUpload.dll
+F:\Documents\SourceCode\PicasaUpload\source\PicasaUpload\obj\Debug\PicasaUpload.pdb
