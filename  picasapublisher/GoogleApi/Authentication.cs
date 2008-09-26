@@ -16,11 +16,12 @@ namespace GoogleApi
 		private const string AUTHENTICATE_URL = "https://www.google.com/accounts/ClientLogin";
 		/// <summary>
 		/// This is the class that gets returned after a call to Authenticate:
+		/// 
 		/// </summary>
 		public class AuthenticationResult
 		{
 			/// <summary>
-			/// Possible values for ErrorCodes:
+			/// Possible values for ErrorCodes:  
 			/// </summary>
 			public enum ErrorCodes
 			{
