@@ -10,6 +10,7 @@ using System.Net;
 using System.Net.Security;
 using System.IO;
 using GoogleApi;
+using Google.GData.Photos;
 
 
 namespace PicasaUpload
@@ -19,6 +20,9 @@ namespace PicasaUpload
 	/// </summary>
 	public partial class PicasaPubliserForm : Form
 	{
+		private const string APPLICATION_NAME = "MLS-PicassaLivePublisher-2";
+
+
 		/// <summary>
 		/// Constructor
 		/// </summary>
@@ -118,6 +122,41 @@ namespace PicasaUpload
 
 			//Set the cursor to wait so user knows something is happenning:
 			this.Cursor = Cursors.WaitCursor;
+
+
+
+			/*
+			 * http://code.google.com/apis/picasaweb/developers_guide_dotnet.html#ClientLogin
+			 * 
+			 * 
+			 */
+
+
+			#region Issue 10 - Move to the Google Data API already built.
+			/*
+			 * There seems to be problems with databinding because you have to bind to a subproperty, which
+			 * doesn't seem to be supported by combo box:
+			 * 
+			 */
+			//PicasaService service = new PicasaService(APPLICATION_NAME);
+			//service.setUserCredentials(email, password);
+
+
+			//AlbumQuery query = new AlbumQuery(PicasaQuery.CreatePicasaUri("default"));
+
+			//PicasaFeed feed = service.Query(query);
+			//entriesBindingSource.DataSource = feed.Entries;
+
+
+
+
+
+
+
+			//int i = 0;
+
+			#endregion
+
 
 			//Actually try logging in:
 			GoogleApi.Authentication.AuthenticationResult result = GoogleApi.Authentication.Authenticate(GoogleApi.Authentication.AccountTypes.GOOGLE, email, password, GoogleApi.Authentication.Services.PICASA_WEB_ALBUMS, "MLS-PicassaLivePublisher-1");
