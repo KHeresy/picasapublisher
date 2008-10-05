@@ -5,15 +5,13 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{956E6246-6319-46D1-9DDE-790F374AD9B5}</ProjectGuid>
+    <ProjectGuid>{51C03500-A112-47FF-BD3E-2BFEBC780FE5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PicasaUpload</RootNamespace>
-    <AssemblyName>PicasaUpload</AssemblyName>
+    <RootNamespace>PicasaUpload.GoogleApi</RootNamespace>
+    <AssemblyName>PicasaUpload.GoogleApi</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <StartupObject>
-    </StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,21 +32,17 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Google.GData.Client, Version=1.2.2.0, Culture=neutral, PublicKeyToken=04a59ca9b0273830, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Program Files\Google\Google Data API SDK\Redist\Google.GData.Client.DLL</HintPath>
     </Reference>
     <Reference Include="Google.GData.Photos, Version=1.2.2.0, Culture=neutral, PublicKeyToken=a25b50f2e8e3887a, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\..\Program Files\Google\Google Data API SDK\Redist\Google.GData.Photos.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.WindowsLive.PublishPlugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files\Windows Live\Photo Gallery\Microsoft.WindowsLive.PublishPlugins.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files\Google\Google Data API SDK\Redist\Google.GData.Photos.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -59,31 +53,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PicasaPubliserForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="PicasaPubliserForm.Designer.cs">
-      <DependentUpon>PicasaPubliserForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PicasaPublisher.cs" />
+    <Compile Include="Picasa.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="PicasaPubliserForm.resx">
-      <DependentUpon>PicasaPubliserForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\GoogleApi\GoogleApi.csproj">
-      <Project>{6D769838-38EA-494B-9607-BB53EB7E94D5}</Project>
-      <Name>GoogleApi</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Properties\DataSources\Google.GData.Photos.PicasaFeed.datasource" />
-    <None Include="Properties\DataSources\GoogleApi.PicasaWebAlbums.AlbumList+AlbumDataTable.datasource" />
-    <None Include="Properties\DataSources\GoogleApi.PicasaWebAlbums.AlbumList.datasource" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
