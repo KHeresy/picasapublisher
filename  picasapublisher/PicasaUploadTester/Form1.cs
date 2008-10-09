@@ -25,7 +25,7 @@ namespace PicasaUploadTester
 
 		private void button1_Click(object sender, EventArgs e)
 		{
-			PicasaUpload.PicasaPubliserForm form = new PicasaUpload.PicasaPubliserForm();
+			PicasaUpload.LoginForm form = new PicasaUpload.LoginForm();
 			if (form.ShowDialog() == DialogResult.OK)
 			{
 				//choose file
@@ -38,6 +38,11 @@ namespace PicasaUploadTester
 					GoogleApi.PicasaWebAlbums.PicasaWebAlbumsRequest.PostPhotoWithoutMetadata(form.SelectedAlbumId, File.OpenRead(filename), Path.GetFileName(filename), form.GoogleAuthKey);
 				}
 			}
+		}
+
+		private void button2_Click(object sender, EventArgs e)
+		{
+			PicasaUpload.UI.SelectAlbum.SelectAlbumUI();
 		}
 	}
 }

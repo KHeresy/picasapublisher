@@ -23,23 +23,31 @@ namespace PicasaUpload.UI
         public static SelectAlbumDataSet SelectAlbumUI()
         {
             Picasa picasa = new Picasa(APP_NAME);
-            LoginWindow login = new LoginWindow();
+			LoginForm login = new LoginForm();
+			login.ShowDialog();
+//            LoginWindow login = new LoginWindow(picasa);
 
-            //Login
-            if (login.ShowDialog() == true)
-            {
-                
-            }
+			////Login
+			//if (login.ShowDialog() == true)
+			//{
+			//    if (!login.LoginClicked)
+			//    {
+			//        return null;
+			//    }
+			//}
 
-            string username = login.Username;
-            bool rememberUsername = login.RememberUsername;
-            string authenticationToken = picasa.Login(username, login.Password);
+			string username = "";
+			bool rememberUsername = false;
+			string authenticationToken = "";
             
             
             //Display UI for selecting album:
             string selectedAlbumId = string.Empty;
-            SelectAlbumWindow selectAlbum = new SelectAlbumWindow();
-            //selectAlbum.
+            SelectAlbumWindow selectAlbum = new SelectAlbumWindow(picasa);
+			if (selectAlbum.ShowDialog() == true)
+			{
+
+			}
 
 
             

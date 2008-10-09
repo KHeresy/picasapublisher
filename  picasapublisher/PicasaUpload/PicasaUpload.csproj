@@ -33,12 +33,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Google.GData.Client, Version=1.2.2.0, Culture=neutral, PublicKeyToken=04a59ca9b0273830, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\..\Program Files\Google\Google Data API SDK\Redist\Google.GData.Client.DLL</HintPath>
-    </Reference>
-    <Reference Include="Google.GData.Photos, Version=1.2.2.0, Culture=neutral, PublicKeyToken=a25b50f2e8e3887a, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\..\Program Files\Google\Google Data API SDK\Redist\Google.GData.Photos.dll</HintPath>
-    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <Reference Include="Microsoft.WindowsLive.PublishPlugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\Windows Live\Photo Gallery\Microsoft.WindowsLive.PublishPlugins.dll</HintPath>
@@ -47,6 +43,7 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq">
@@ -59,18 +56,52 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PicasaPubliserForm.cs">
+    <Compile Include="AlbumForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PicasaPubliserForm.Designer.cs">
-      <DependentUpon>PicasaPubliserForm.cs</DependentUpon>
+    <Compile Include="AlbumForm.Designer.cs">
+      <DependentUpon>AlbumForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AlbumSelectionControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AlbumSelectionControl.Designer.cs">
+      <DependentUpon>AlbumSelectionControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AlbumSelectionUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AlbumSelectionUserControl.Designer.cs">
+      <DependentUpon>AlbumSelectionUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AlbumUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AlbumUserControl.Designer.cs">
+      <DependentUpon>AlbumUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
     <Compile Include="PicasaPublisher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="PicasaPubliserForm.resx">
-      <DependentUpon>PicasaPubliserForm.cs</DependentUpon>
+    <EmbeddedResource Include="AlbumSelectionControl.resx">
+      <DependentUpon>AlbumSelectionControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AlbumSelectionUserControl.resx">
+      <DependentUpon>AlbumSelectionUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AlbumUserControl.resx">
+      <DependentUpon>AlbumUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

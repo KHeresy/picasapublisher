@@ -5,7 +5,7 @@
 	x:Class="PicasaUpload.UI.SelectAlbumWindow"
 	x:Name="Window"
 	Title="SelectAlbumWindow"
-	Width="741" Height="480">
+	Width="741" Height="480" Loaded="Window_Loaded">
 
 	<Grid x:Name="LayoutRoot">
 		<Label Margin="8,36,8,0" VerticalAlignment="Top" Content="Label" Height="83.96"/>

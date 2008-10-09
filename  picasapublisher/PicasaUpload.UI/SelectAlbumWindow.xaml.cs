@@ -7,16 +7,27 @@ using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Navigation;
+using Google.GData.Photos;
+using PicasaUpload.GoogleApi;
 
 namespace PicasaUpload.UI
 {
 	public partial class SelectAlbumWindow
 	{
-		public SelectAlbumWindow()
+		private Picasa _picasaApi;
+		public PicasaFeed Albums { get { return _albumSelectedUC.Albums; } set { _albumSelectedUC.Albums = value; } }
+
+		public SelectAlbumWindow(Picasa picasaApi)
 		{
 			this.InitializeComponent();
+			_picasaApi = picasaApi;
 			
 			// Insert code required on object creation below this point.
+		}
+
+		private void Window_Loaded(object sender, RoutedEventArgs e)
+		{
+			Albums = _picasaApi.GetAlbums();
 		}
 	}
 }

@@ -85,7 +85,7 @@ namespace PicasaUpload
 		{
 			try
 			{
-				PicasaPubliserForm form = new PicasaPubliserForm();
+				LoginForm form = new LoginForm();
 
 				//User may have choosen to save their username, so get that information from PersistXml:
 				bool rememberUserEmail;

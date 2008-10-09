@@ -22,31 +22,55 @@ namespace PicasaUpload.UI
 		}
 
         private PicasaFeed _albums = null;
-        public PicasaFeed Albums { get { return _albums; } set { _albums = value; } }
+        public PicasaFeed Albums 
+		{ 
+			get { return _albums; } 
+			set 
+			{ 
+				_albums = value;
+				LoadAlbums();
+			} 
+		}
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            if (_albums == null)
-            {
-                return;
-            }
-            int count = _albums.Entries.Count;
-            int columns = 2;
-            int rows = count / columns;
-            _gridLayout.Rows = rows;
-            _gridLayout.Columns = columns;
-
-            foreach( Google.GData.Client.AtomEntry entry in _albums.Entries )
-            {
-                AlbumEntry album = entry as AlbumEntry;
-                if( album == null )
-                {
-                    continue;
-                }
-
-                AlbumItem albumItem = new AlbumItem();
-                _gridLayout.Children.Add( albumItem );
-            }
+			LoadAlbums();
         }
+
+		private void LoadAlbums()
+		{
+			if (this.IsLoaded == false)
+			{
+				return;
+			}
+			if (_albums == null)
+			{
+				return;
+			}
+
+			//Clear out all of the children:
+			_gridLayout.Children.Clear();
+
+			//Setup the counts, and size of the grid layout
+			int count = _albums.Entries.Count;
+			int columns = 2;
+			int rows = count / columns;
+			_gridLayout.Rows = rows;
+			_gridLayout.Columns = columns;
+
+			//Go through each album, and add an AlbumItem
+			foreach (Google.GData.Client.AtomEntry entry in _albums.Entries)
+			{
+				PicasaEntry album = entry as PicasaEntry;
+				if (album == null)
+				{
+					continue;
+				}
+
+				AlbumItem albumItem = new AlbumItem();
+				albumItem.AlbumEntry = album;
+				_gridLayout.Children.Add(albumItem);
+			}
+		}
     }
 }
