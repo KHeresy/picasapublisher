@@ -24,7 +24,11 @@ namespace PicasaUpload.UI
         {
             Picasa picasa = new Picasa(APP_NAME);
 			LoginForm login = new LoginForm();
-			login.ShowDialog();
+            login.PicasaPublisherApi = picasa;
+            if (login.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+            {
+                return null;
+            }
 //            LoginWindow login = new LoginWindow(picasa);
 
 			////Login

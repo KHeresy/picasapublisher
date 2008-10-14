@@ -51,7 +51,16 @@ namespace PicasaUpload.UI
 				return;
 			}
 			_loginClicked = true;
+
+            //Fire the Close me event:
+            OnCloseLogin();
 		}
+
+        private void _cmdCancel_Click(object sender, RoutedEventArgs e)
+        {
+            _loginClicked = false;
+            OnCloseLogin();
+        }
 
 		private void _cmdFeedback_Click(object sender, RoutedEventArgs e)
 		{
@@ -61,6 +70,20 @@ namespace PicasaUpload.UI
 		private void _cmdDonate_Click(object sender, RoutedEventArgs e)
 		{
 			Process.Start(Properties.Resources.BASE_URL + Properties.Resources.DONATE_URL);
-		}
+        }
+
+        #region Our Events
+        public delegate void CloseLogin(object sender, EventArgs e);
+        public event CloseLogin CloseLoginEvent;
+        private void OnCloseLogin()
+        {
+            if (CloseLoginEvent != null)
+            {
+                CloseLoginEvent(this, EventArgs.Empty);
+            }
+        }
+        #endregion
+
+
     }
 }
