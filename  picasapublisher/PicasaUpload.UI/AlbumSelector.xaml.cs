@@ -55,7 +55,8 @@ namespace PicasaUpload.UI
 			int count = _albums.Entries.Count;
 			int columns = 2;
 			int rows = count / columns;
-			_gridLayout.Rows = rows;
+
+			_gridLayout.Rows = rows + 1;
 			_gridLayout.Columns = columns;
 
 			//Go through each album, and add an AlbumItem

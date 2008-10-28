@@ -35,6 +35,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Program Files\Google\Google Data API SDK\Redist\Google.GData.Client.DLL</HintPath>
     </Reference>
+    <Reference Include="Google.GData.Extensions, Version=1.2.2.0, Culture=neutral, PublicKeyToken=0b4c5df2ebf20876, processorArchitecture=MSIL" />
     <Reference Include="Google.GData.Photos, Version=1.2.2.0, Culture=neutral, PublicKeyToken=a25b50f2e8e3887a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Program Files\Google\Google Data API SDK\Redist\Google.GData.Photos.dll</HintPath>

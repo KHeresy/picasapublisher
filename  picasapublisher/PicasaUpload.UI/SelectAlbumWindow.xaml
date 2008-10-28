@@ -10,7 +10,7 @@
 	<Grid x:Name="LayoutRoot">
 		<Label Margin="8,36,8,0" VerticalAlignment="Top" Content="Label" Height="83.96"/>
         <ScrollViewer Margin="12,96.96,8,12" Name="scrollViewer1">
-            <my:AlbumSelector x:Name="_albumSelectedUC"></my:AlbumSelector>
+            <my:AlbumSelector x:Name="_albumSelectedUC" Height="Auto" ScrollViewer.CanContentScroll="True"></my:AlbumSelector>
         </ScrollViewer>
     </Grid>
 </Window>

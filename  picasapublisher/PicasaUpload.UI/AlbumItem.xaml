@@ -5,7 +5,7 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	mc:Ignorable="d"
 	x:Class="PicasaUpload.UI.AlbumItem"
-	x:Name="UserControl" Height="164" Width="308" Background="#00000000" MaxHeight="164" MinHeight="164" MaxWidth="308" MinWidth="308">
+	x:Name="UserControl" Height="180" Width="350" Background="#00000000" MaxHeight="180" MinHeight="180" MaxWidth="350" MinWidth="350">
 	<UserControl.Resources>
 		<Storyboard x:Key="OnMouseEnter1">
 			<ColorAnimationUsingKeyFrames BeginTime="00:00:00" Duration="00:00:00.0010000" Storyboard.TargetName="{x:Null}" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)">
@@ -22,10 +22,10 @@
 		</EventTrigger>
 	</UserControl.Triggers>
 
-	<Grid x:Name="LayoutRoot" Background="{x:Null}" Loaded="LayoutRoot_Loaded" Margin="0">
-		<Image HorizontalAlignment="Left" Margin="8,8,0,12" Width="144" x:Name="_albumPicture">
+	<Grid x:Name="LayoutRoot" Background="{x:Null}" Loaded="LayoutRoot_Loaded" Margin="0" Height="180" Width="350">
+		<Image HorizontalAlignment="Left" Margin="12,8,0,12" Width="160" x:Name="_albumPicture">
 
 		</Image>
-		<TextBox Margin="0,8,8,0" VerticalAlignment="Top" Height="Auto" Text="TextBox" TextWrapping="Wrap" Width="144" HorizontalAlignment="Right" x:Name="_txtAlbumName"/>
+		<TextBox Margin="0,8,12,0" VerticalAlignment="Top" Height="19.277" Text="TextBox" TextWrapping="Wrap" x:Name="_txtAlbumName" HorizontalAlignment="Right" Width="160" />
 	</Grid>
 </UserControl>

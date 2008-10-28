@@ -8,7 +8,7 @@
 	x:Name="UserControl"
 	d:DesignWidth="640" d:DesignHeight="480" Loaded="UserControl_Loaded">
 
-	<Grid x:Name="LayoutRoot" Height="430" Width="583">
+	<Grid x:Name="LayoutRoot" Height="Auto" Width="Auto">
 		<UniformGrid Margin="0,0,12,12" Name="_gridLayout" />
 	</Grid>
 </UserControl>
