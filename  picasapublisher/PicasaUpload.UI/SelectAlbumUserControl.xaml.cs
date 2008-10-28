@@ -12,12 +12,12 @@ using PicasaUpload.GoogleApi;
 
 namespace PicasaUpload.UI
 {
-	public partial class SelectAlbumWindow
+	public partial class SelectAlbumUserControl
 	{
 		private Picasa _picasaApi;
 		public PicasaFeed Albums { get { return _albumSelectedUC.Albums; } set { _albumSelectedUC.Albums = value; } }
 
-		public SelectAlbumWindow(Picasa picasaApi)
+		public SelectAlbumUserControl(Picasa picasaApi)
 		{
 			this.InitializeComponent();
 			_picasaApi = picasaApi;

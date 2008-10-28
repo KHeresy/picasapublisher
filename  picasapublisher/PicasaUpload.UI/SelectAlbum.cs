@@ -47,10 +47,11 @@ namespace PicasaUpload.UI
             
             //Display UI for selecting album:
             string selectedAlbumId = string.Empty;
-            SelectAlbumWindow selectAlbum = new SelectAlbumWindow(picasa);
-			if (selectAlbum.ShowDialog() == true)
+			SelectAlbumForm selectAlbum = new SelectAlbumForm();
+			selectAlbum.PicasaPublisherApi = picasa;
+			if (selectAlbum.ShowDialog() != System.Windows.Forms.DialogResult.OK)
 			{
-
+				return null;
 			}
 
 

@@ -72,12 +72,12 @@
     <Reference Include="WindowsFormsIntegration">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
-    <Page Include="SelectAlbumWindow.xaml">
+    <Page Include="SelectAlbumUserControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="SelectAlbumWindow.xaml.cs">
-      <DependentUpon>SelectAlbumWindow.xaml</DependentUpon>
+    <Compile Include="SelectAlbumUserControl.xaml.cs">
+      <DependentUpon>SelectAlbumUserControl.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -107,6 +107,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SelectAlbumDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="SelectAlbumForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelectAlbumForm.Designer.cs">
+      <DependentUpon>SelectAlbumForm.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -152,6 +158,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\NewAlbumImage.png" />
+    <EmbeddedResource Include="SelectAlbumForm.resx">
+      <DependentUpon>SelectAlbumForm.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
