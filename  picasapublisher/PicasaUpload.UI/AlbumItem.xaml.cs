@@ -10,6 +10,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using Google.GData.Extensions.MediaRss;
 using Google.GData.Photos;
+using System.Windows.Interop;
 
 namespace PicasaUpload.UI
 {
@@ -33,15 +34,31 @@ namespace PicasaUpload.UI
 				return;
 			}
 
+			//Initialize this as a new album:
 			if (_albumEntry == null)
 			{
+				_txtAlbumName.Text = "<New Album>";
+				_txtAlbumSummary.Text = "<Enter Summary>";
+				_cboAlbumRights.SelectedIndex = 0;
+
+				_albumPicture.Source = Imaging.CreateBitmapSourceFromHBitmap(Properties.Resources.NewAlbumImage.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, System.Windows.Media.Imaging.BitmapSizeOptions.FromEmptyOptions());
 				return;
 			}
 
-			_txtAlbumName.Text = _albumEntry.Title.Text;
+			//Make everything readonly:
+			_txtAlbumName.IsReadOnly = true;
+			_txtAlbumSummary.IsReadOnly = true;
+			_cboAlbumRights.IsEnabled = false;
+
+
 			
+			_txtAlbumName.Text = _albumEntry.Title.Text;
+			_txtAlbumSummary.Text = _albumEntry.Summary.Text;
+			string rights = _albumEntry.Rights.Text;
+			_cboAlbumRights.SelectedIndex = (rights == "public" ? 0 : 1);
+
+						
 			//is there a thumbnail, and if so, look for the closest to 160x160:
-			int thumbnails = _albumEntry.Media.Thumbnails.Count;
 			MediaThumbnail displayPicture = null;
 			foreach( MediaThumbnail thumb in _albumEntry.Media.Thumbnails)
 			{
@@ -62,15 +79,13 @@ namespace PicasaUpload.UI
 
 			if( displayPicture != null )
 			{
-				//TODO: Images not loading:
+				//2008-10-28 - Images not loading:
 				//I don't think we can use these URL's directly, maybe have to load it up through
 				//another picasa object.  (I'm thinking that you may have to be logged in)
-				//BitmapImage img = new BitmapImage(new Uri(displayPicture.Url));
-				//_albumPicture.Source = img; 
 
-				//something like this?
-				//PhotoQuery query = new PhotoQuery(displayPicture.Url);
-				
+				//2008-10-28 - They are working now, maybe a problem with my network?
+				BitmapImage img = new BitmapImage(new Uri(displayPicture.Url));
+				_albumPicture.Source = img; 
 			}
 		}
 

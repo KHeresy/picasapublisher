@@ -52,12 +52,15 @@ namespace PicasaUpload.UI
 			_gridLayout.Children.Clear();
 
 			//Setup the counts, and size of the grid layout
-			int count = _albums.Entries.Count;
+			int count = _albums.Entries.Count + 1;	//add one for the new item:
 			int columns = 2;
 			int rows = count / columns;
 
 			_gridLayout.Rows = rows + 1;
 			_gridLayout.Columns = columns;
+
+			//add a blank item at the top.  This is the one for the user to enter a new album:
+			_gridLayout.Children.Add(new AlbumItem());
 
 			//Go through each album, and add an AlbumItem
 			foreach (Google.GData.Client.AtomEntry entry in _albums.Entries)

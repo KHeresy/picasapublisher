@@ -26,6 +26,11 @@
 		<Image HorizontalAlignment="Left" Margin="12,8,0,12" Width="160" x:Name="_albumPicture">
 
 		</Image>
-		<TextBox Margin="0,8,12,0" VerticalAlignment="Top" Height="19.277" Text="TextBox" TextWrapping="Wrap" x:Name="_txtAlbumName" HorizontalAlignment="Right" Width="160" />
-	</Grid>
+		<TextBox Margin="0,8,12,0" VerticalAlignment="Top" Height="19.277" Text="TextBox" TextWrapping="Wrap" x:Name="_txtAlbumName" HorizontalAlignment="Right" Width="160" ToolTip="Album's Name" />
+        <TextBox Margin="178,34,12,41" Name="_txtAlbumSummary" AcceptsReturn="True" AcceptsTab="True" FontStyle="Italic" ToolTip="Album's Summary"></TextBox>
+        <ComboBox Height="23" HorizontalAlignment="Right" Margin="0,0,12,12" Name="_cboAlbumRights" VerticalAlignment="Bottom" Width="160" ToolTip="Rights to the album.">
+            <ComboBoxItem>Public</ComboBoxItem>
+            <ComboBoxItem>Private</ComboBoxItem>
+        </ComboBox>
+    </Grid>
 </UserControl>

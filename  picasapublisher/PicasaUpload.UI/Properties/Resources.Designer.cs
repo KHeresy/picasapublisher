@@ -86,5 +86,12 @@ namespace PicasaUpload.UI.Properties {
                 return ResourceManager.GetString("FEEDBACK_URL", resourceCulture);
             }
         }
+        
+        internal static System.Drawing.Bitmap NewAlbumImage {
+            get {
+                object obj = ResourceManager.GetObject("NewAlbumImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
