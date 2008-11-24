@@ -15,6 +15,12 @@
     {
         "Entry"
         {
+        "MsmKey" = "8:_43C03CC5BB3F428C801E7B2E6B7C981E"
+        "OwnerKey" = "8:_8BD17138EE514583B5DB7D8EA40AEFCF"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_8BD17138EE514583B5DB7D8EA40AEFCF"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -35,6 +41,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_8BD17138EE514583B5DB7D8EA40AEFCF"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_43C03CC5BB3F428C801E7B2E6B7C981E"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -94,7 +106,7 @@
         "DisplayName" = "8:Release"
         "IsDebugOnly" = "11:FALSE"
         "IsReleaseOnly" = "11:TRUE"
-        "OutputFilename" = "8:Release\\PicasaPublisherSetup_1.0.1.msi"
+        "OutputFilename" = "8:Release\\PicasaPublisherSetup_1.0.2.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
@@ -154,6 +166,37 @@
         }
         "File"
         {
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_43C03CC5BB3F428C801E7B2E6B7C981E"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:GoogleApi, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_43C03CC5BB3F428C801E7B2E6B7C981E"
+                    {
+                    "Name" = "8:GoogleApi.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:GoogleApi.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_14139CA6DCE544819B88F07C41F80D32"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_D54185E44803DF4C755F3B943044279A"
             {
             "AssemblyRegister" = "3:1"
@@ -273,7 +316,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Picasa Web Albums Live Publisher"
         "ProductCode" = "8:{58017450-D061-4B33-98BE-1AC51C2DCF97}"
-        "PackageCode" = "8:{1E103584-90B2-46EA-A513-184F0EDF9093}"
+        "PackageCode" = "8:{9ED8D223-2A75-436B-AD71-D95CFD93E73B}"
         "UpgradeCode" = "8:{C8659843-908A-4224-917F-D3DDE0484F76}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
@@ -873,7 +916,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_8BD17138EE514583B5DB7D8EA40AEFCF"
             {
-            "SourcePath" = "8:..\\PicasaUpload\\obj\\Debug\\PicasaUpload.dll"
+            "SourcePath" = "8:..\\PicasaUpload\\obj\\Release\\PicasaUpload.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_14139CA6DCE544819B88F07C41F80D32"
