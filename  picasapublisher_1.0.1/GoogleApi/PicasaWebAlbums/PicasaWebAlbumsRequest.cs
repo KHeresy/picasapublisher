@@ -155,30 +155,47 @@ namespace GoogleApi.PicasaWebAlbums
 			{
 				albumId = "default";
 			}
-
 			string albumFormatString = "http://picasaweb.google.com/data/feed/api/user/{0}/albumid/{1}";
-
 			string requestUri = string.Format(albumFormatString, DEFAULT_USER_ID, albumId);
+ 
+			//we have a request, lets write out all of our text:
+			string atom = GetAtomXml(filename);
+
+			StringBuilder firstPart = new StringBuilder();
+			firstPart.AppendLine("Media multipart posting");
+			firstPart.AppendLine("--END_OF_PART");
+			firstPart.AppendLine("Content-Type: application/atom+xml");
+			firstPart.AppendLine("");
+			firstPart.AppendLine(atom);
+			firstPart.AppendLine("--END_OF_PART");
+			firstPart.AppendLine("Content-Type: image/jpeg");
+			firstPart.AppendLine("");
+			StringBuilder lastPart = new StringBuilder();
+			lastPart.AppendLine("");
+			lastPart.AppendLine("--END_OF_PART--");
+			byte[] firstPartBytes = Encoding.UTF8.GetBytes(firstPart.ToString());
+			byte[] imageBytes = new byte[imageStream.Length];
+			byte[] lastPartBytes = Encoding.UTF8.GetBytes(lastPart.ToString());
+			long contentLength = firstPartBytes.Length + imageBytes.Length + lastPartBytes.Length;
+			imageStream.Read(imageBytes, 0, imageBytes.Length);
+
+			//Prepare our request headers:
 			HttpWebRequest request = (HttpWebRequest)WebRequest.Create(requestUri);
-
-			AddAuthorizationRequestHeader(request, auth);
-
 			request.Method = "POST";
-			request.ContentType = "image/jpeg";
-			request.ContentLength = imageStream.Length;
-
-			if (!string.IsNullOrEmpty(filename))
-			{
-				request.Headers.Add(string.Format("Slug: {0}", filename));
-			}
-
+			AddAuthorizationRequestHeader(request, auth);
+			//This is a multipart message.  The first part is the atom+xml, the second is the actual image:
+			request.ContentType = "multipart/related; boundary=\"END_OF_PART\"";
+			request.ContentLength = contentLength;
+			request.Headers.Add("MIME-version: 1.0");
+			
+			//write our data out to the stream:
 			Stream requestStream = request.GetRequestStream();
-			byte[] buffer = new byte[imageStream.Length];
-			imageStream.Read(buffer, 0, buffer.Length);
-			requestStream.Write(buffer, 0, buffer.Length);
+			requestStream.Write(firstPartBytes, 0, firstPartBytes.Length);
+			requestStream.Write(imageBytes, 0, imageBytes.Length);
+			requestStream.Write(lastPartBytes, 0, lastPartBytes.Length);
 			requestStream.Close();
 
-
+			//send everything to google:
 			HttpWebResponse response = null;
 			try
 			{
@@ -198,6 +215,12 @@ namespace GoogleApi.PicasaWebAlbums
 			}
 			return true;
 
+		}
+
+		private static string GetAtomXml(string filename)
+		{
+			string entryFromat = "<entry xmlns=\"http://www.w3.org/2005/Atom\"><title>{0}</title><summary>{1}</summary><category scheme=\"http://schemas.google.com/g/2005#kind\" term=\"http://schemas.google.com/photos/2007#photo\"/></entry>";
+			return string.Format(entryFromat, filename, string.Empty);
 		}
 
 		#endregion

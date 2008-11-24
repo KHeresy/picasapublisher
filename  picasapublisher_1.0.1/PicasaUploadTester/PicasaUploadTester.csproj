@@ -86,10 +86,6 @@
       <Project>{6D769838-38EA-494B-9607-BB53EB7E94D5}</Project>
       <Name>GoogleApi</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PicasaUpload.UI\PicasaUpload.UI.csproj">
-      <Project>{C9C3FEC3-983D-4E1E-9776-31B1D89F34AF}</Project>
-      <Name>PicasaUpload.UI</Name>
-    </ProjectReference>
     <ProjectReference Include="..\PicasaUpload\PicasaUpload.csproj">
       <Project>{956E6246-6319-46D1-9DDE-790F374AD9B5}</Project>
       <Name>PicasaUpload</Name>
