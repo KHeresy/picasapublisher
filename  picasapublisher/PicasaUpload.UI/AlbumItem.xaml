@@ -5,32 +5,24 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	mc:Ignorable="d"
 	x:Class="PicasaUpload.UI.AlbumItem"
-	x:Name="UserControl" Height="180" Width="350" Background="#00000000" MaxHeight="180" MinHeight="180" MaxWidth="350" MinWidth="350">
+	x:Name="UserControl" Height="180" Width="350" MaxHeight="180" MinHeight="180" MaxWidth="350" MinWidth="350" Background="#00000000" MouseDown="UserControl_MouseDown" LostFocus="UserControl_LostFocus" GotFocus="UserControl_GotFocus"   >
 	<UserControl.Resources>
-		<Storyboard x:Key="OnMouseEnter1">
-			<ColorAnimationUsingKeyFrames BeginTime="00:00:00" Duration="00:00:00.0010000" Storyboard.TargetName="{x:Null}" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)">
-				<SplineColorKeyFrame KeyTime="00:00:00" Value="#FFD7E4F2"/>
+		<Storyboard x:Key="SelectedStoryboard">
+			<ColorAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="{x:Null}" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)">
+				<SplineColorKeyFrame KeyTime="00:00:00" Value="#05000000"/>
+				<SplineColorKeyFrame KeyTime="00:00:00.7000000" Value="#FF99A9E5"/>
 			</ColorAnimationUsingKeyFrames>
 		</Storyboard>
 	</UserControl.Resources>
 	<UserControl.Triggers>
-		<EventTrigger RoutedEvent="Mouse.MouseEnter">
-			<BeginStoryboard Storyboard="{StaticResource OnMouseEnter1}" x:Name="OnMouseEnter1_BeginStoryboard"/>
-		</EventTrigger>
-		<EventTrigger RoutedEvent="Mouse.MouseLeave">
-			<RemoveStoryboard BeginStoryboardName="OnMouseEnter1_BeginStoryboard"/>
-		</EventTrigger>
 	</UserControl.Triggers>
-
-	<Grid x:Name="LayoutRoot" Background="{x:Null}" Loaded="LayoutRoot_Loaded" Margin="0" Height="180" Width="350">
-		<Image HorizontalAlignment="Left" Margin="12,8,0,12" Width="160" x:Name="_albumPicture">
-
-		</Image>
-		<TextBox Margin="0,8,12,0" VerticalAlignment="Top" Height="19.277" Text="TextBox" TextWrapping="Wrap" x:Name="_txtAlbumName" HorizontalAlignment="Right" Width="160" ToolTip="Album's Name" />
-        <TextBox Margin="178,34,12,41" Name="_txtAlbumSummary" AcceptsReturn="True" AcceptsTab="True" FontStyle="Italic" ToolTip="Album's Summary"></TextBox>
-        <ComboBox Height="23" HorizontalAlignment="Right" Margin="0,0,12,12" Name="_cboAlbumRights" VerticalAlignment="Bottom" Width="160" ToolTip="Rights to the album.">
-            <ComboBoxItem>Public</ComboBoxItem>
-            <ComboBoxItem>Private</ComboBoxItem>
+    <Grid x:Name="LayoutRoot" Background="{x:Null}" Loaded="LayoutRoot_Loaded" Margin="0" Height="180" Width="350" Focusable="True">
+        <Image Width="160" x:Name="_albumPicture" Height="160" Canvas.Left="12" Canvas.Top="8" Margin="8,10,0,10" HorizontalAlignment="Left" d:LayoutOverrides="Width" Focusable="True"/>
+        <TextBox Height="27.5" Text="test" TextWrapping="NoWrap" x:Name="_txtAlbumName" Width="160" ToolTip="Album's Name" Canvas.Left="178" Canvas.Top="8" Margin="0,10,8,0" VerticalAlignment="Top" d:LayoutOverrides="Width" HorizontalAlignment="Right" FontSize="16" FontFamily="./Fonts/#Segoe UI" d:IsStaticText="True" />
+        <TextBox x:Name="_txtAlbumSummary" AcceptsReturn="True" AcceptsTab="True" FontStyle="Italic" ToolTip="Album's Summary" Width="160" Canvas.Left="178" Canvas.Top="34" Margin="0,41.5,8,41.5" HorizontalAlignment="Right" d:LayoutOverrides="Width" FontFamily="./Fonts/#Segoe UI" FontSize="14"/>
+        <ComboBox Height="29.5" x:Name="_cboAlbumRights" Width="160" ToolTip="Rights to the album." Canvas.Left="178" Canvas.Top="145" Margin="0,0,8,8" VerticalAlignment="Bottom" d:LayoutOverrides="Width" HorizontalAlignment="Right" FontFamily="./Fonts/#Segoe UI" d:IsStaticText="True" FontSize="14">
+            <ComboBoxItem Content="Public"/>
+            <ComboBoxItem Content="Private"/>
         </ComboBox>
     </Grid>
 </UserControl>

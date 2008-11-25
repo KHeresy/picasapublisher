@@ -30,8 +30,16 @@ namespace PicasaUpload.UI
 		private void SelectAlbumForm_Load(object sender, EventArgs e)
 		{
 			_selectAlbumUserControl = new SelectAlbumUserControl(_picasaPublisherApi);
+			_selectAlbumUserControl.CloseWindow += new SelectAlbumUserControl.CloseWindowHandler(_selectAlbumUserControl_CloseWindow);
 
 			_wpfHost.Child = _selectAlbumUserControl;
 		}
+
+		void _selectAlbumUserControl_CloseWindow(object sender, EventArgs e)
+		{
+			DialogResult = _selectAlbumUserControl.OkClicked ? DialogResult.OK : DialogResult.Cancel;
+		}
+
+		public string SelectedAlbum { get { return _selectAlbumUserControl.SelectedAlbum; } }
 	}
 }

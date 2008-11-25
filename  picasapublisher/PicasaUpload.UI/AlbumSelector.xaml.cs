@@ -60,7 +60,9 @@ namespace PicasaUpload.UI
 			_gridLayout.Columns = columns;
 
 			//add a blank item at the top.  This is the one for the user to enter a new album:
-			_gridLayout.Children.Add(new AlbumItem());
+			AlbumItem blankItem = new AlbumItem();
+			blankItem.SelectionChanged += new AlbumItem.SelectionChangedHandler(albumItem_SelectionChanged);
+			_gridLayout.Children.Add(blankItem);
 
 			//Go through each album, and add an AlbumItem
 			foreach (Google.GData.Client.AtomEntry entry in _albums.Entries)
@@ -74,7 +76,34 @@ namespace PicasaUpload.UI
 				AlbumItem albumItem = new AlbumItem();
 				albumItem.AlbumEntry = album;
 				_gridLayout.Children.Add(albumItem);
+
+				albumItem.SelectionChanged += new AlbumItem.SelectionChangedHandler(albumItem_SelectionChanged);
 			}
 		}
-    }
+
+		#region "Selected Album"
+		private AlbumItem _selectedAlbumControl = null;
+		void albumItem_SelectionChanged(object sender, EventArgs e)
+		{
+			if (_selectedAlbumControl != null)
+			{
+				_selectedAlbumControl.SetSelected(false);
+			}
+			_selectedAlbumControl = (AlbumItem)sender;
+		}
+
+		public string SelectedAlbum { 
+			get 
+			{
+				if (_selectedAlbumControl.AlbumEntry == null)
+				{
+					return string.Empty;
+				}
+
+				return _selectedAlbumControl.AlbumEntry.Id.Uri.ToString(); 
+			} 
+		}
+		#endregion
+
+	}
 }

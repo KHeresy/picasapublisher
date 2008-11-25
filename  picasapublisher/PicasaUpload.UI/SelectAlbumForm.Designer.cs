@@ -37,7 +37,7 @@
 			this._wpfHost.Dock = System.Windows.Forms.DockStyle.Fill;
 			this._wpfHost.Location = new System.Drawing.Point(0, 0);
 			this._wpfHost.Name = "_wpfHost";
-			this._wpfHost.Size = new System.Drawing.Size(532, 459);
+			this._wpfHost.Size = new System.Drawing.Size(741,480);
 			this._wpfHost.TabIndex = 1;
 			this._wpfHost.Text = "elementHost1";
 			this._wpfHost.Child = null;
@@ -46,7 +46,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(532, 459);
+			this.ClientSize = new System.Drawing.Size(741, 480);
 			this.Controls.Add(this._wpfHost);
 			this.Name = "SelectAlbumForm";
 			this.ShowIcon = false;

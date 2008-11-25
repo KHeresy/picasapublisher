@@ -23,22 +23,13 @@ namespace PicasaUpload.UI
         public static SelectAlbumDataSet SelectAlbumUI()
         {
             Picasa picasa = new Picasa(APP_NAME);
+
 			LoginForm login = new LoginForm();
             login.PicasaPublisherApi = picasa;
             if (login.ShowDialog() != System.Windows.Forms.DialogResult.OK)
             {
                 return null;
             }
-//            LoginWindow login = new LoginWindow(picasa);
-
-			////Login
-			//if (login.ShowDialog() == true)
-			//{
-			//    if (!login.LoginClicked)
-			//    {
-			//        return null;
-			//    }
-			//}
 
 			string username = "";
 			bool rememberUsername = false;
@@ -53,10 +44,12 @@ namespace PicasaUpload.UI
 			{
 				return null;
 			}
-
-
             
             //Create new album if necessary
+			selectedAlbumId = selectAlbum.SelectedAlbum;
+			if (selectedAlbumId == string.Empty)
+			{
+			}
 
 
             //Gather up what needs to be returned to the user:

@@ -48,5 +48,6 @@ namespace PicasaUpload.UI
                 DialogResult = DialogResult.Cancel;
             }
         }
+
 	}
 }

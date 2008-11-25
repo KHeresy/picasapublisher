@@ -36,7 +36,7 @@
             this._wpfHost.Dock = System.Windows.Forms.DockStyle.Fill;
             this._wpfHost.Location = new System.Drawing.Point(0, 0);
             this._wpfHost.Name = "_wpfHost";
-            this._wpfHost.Size = new System.Drawing.Size(315, 220);
+			this._wpfHost.Size = new System.Drawing.Size(320, 234);
             this._wpfHost.TabIndex = 0;
             this._wpfHost.Text = "elementHost1";
             this._wpfHost.Child = null;
@@ -46,16 +46,15 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(315, 220);
+			this.ClientSize = new System.Drawing.Size(320, 234);
             this.Controls.Add(this._wpfHost);
-            this.MaximumSize = new System.Drawing.Size(331, 256);
-            this.MinimumSize = new System.Drawing.Size(331, 256);
+			this.MaximumSize = new System.Drawing.Size(320, 234);
+			this.MinimumSize = new System.Drawing.Size(320, 234);
             this.Name = "LoginForm";
             this.ShowIcon = false;
             this.Text = "Picasa Publisher - Login";
             this.Load += new System.EventHandler(this.LoginForm_Load);
             this.ResumeLayout(false);
-
 		}
 
 		#endregion

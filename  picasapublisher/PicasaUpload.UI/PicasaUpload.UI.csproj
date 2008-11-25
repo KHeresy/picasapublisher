@@ -79,6 +79,24 @@
     <Compile Include="SelectAlbumUserControl.xaml.cs">
       <DependentUpon>SelectAlbumUserControl.xaml</DependentUpon>
     </Compile>
+    <BlendEmbeddedFont Include="Fonts\SEGOEUI.TTF">
+      <IsSystemFont>True</IsSystemFont>
+    </BlendEmbeddedFont>
+    <BlendEmbeddedFont Include="Fonts\SEGOEUIB.TTF">
+      <IsSystemFont>True</IsSystemFont>
+    </BlendEmbeddedFont>
+    <BlendEmbeddedFont Include="Fonts\SEGOEUII.TTF">
+      <IsSystemFont>True</IsSystemFont>
+    </BlendEmbeddedFont>
+    <BlendEmbeddedFont Include="Fonts\SEGOEUIZ.TTF">
+      <IsSystemFont>True</IsSystemFont>
+    </BlendEmbeddedFont>
+    <BlendEmbeddedFont Include="Fonts\segoe.ttf">
+      <IsSystemFont>True</IsSystemFont>
+    </BlendEmbeddedFont>
+    <BlendEmbeddedFont Include="Fonts\segoeb.ttf">
+      <IsSystemFont>True</IsSystemFont>
+    </BlendEmbeddedFont>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlbumItem.xaml.cs">
@@ -86,6 +104,7 @@
     </Compile>
     <Compile Include="AlbumSelector.xaml.cs">
       <DependentUpon>AlbumSelector.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
@@ -106,7 +125,6 @@
     <Compile Include="SelectAlbumDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SelectAlbumDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="SelectAlbumForm.cs">
       <SubType>Form</SubType>
@@ -121,8 +139,8 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="AlbumSelector.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Login.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -170,4 +188,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Import Project="SubsetFont.targets" />
 </Project>

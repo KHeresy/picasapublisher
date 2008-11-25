@@ -29,5 +29,37 @@ namespace PicasaUpload.UI
 		{
 			Albums = _picasaApi.GetAlbums();
 		}
+
+		#region Dialog Management
+		private bool _okClicked = false;
+		public bool OkClicked { get { return _okClicked; } }
+
+		private void _cmdOK_Click(object sender, RoutedEventArgs e)
+		{
+			_okClicked = true;
+			OnCloseWindow();
+		}
+
+		private void _cmdCancel_Click(object sender, RoutedEventArgs e)
+		{
+			OnCloseWindow();
+		}
+
+		public delegate void CloseWindowHandler(object sender, EventArgs e);
+		public event CloseWindowHandler CloseWindow;
+		protected void OnCloseWindow()
+		{
+			if( CloseWindow == null )
+			{
+				return;
+			}
+
+			CloseWindow(this, EventArgs.Empty);
+		}
+
+		public string SelectedAlbum { get { return _albumSelectedUC.SelectedAlbum; } }
+
+		#endregion
+
 	}
 }

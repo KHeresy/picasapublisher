@@ -4,12 +4,15 @@
     xmlns:my="clr-namespace:PicasaUpload.UI"
 	x:Class="PicasaUpload.UI.SelectAlbumUserControl"
 	x:Name="SelectAlbum"
-	Width="741" Height="480" Loaded="Window_Loaded">
+	Width="741" Height="480" Loaded="Window_Loaded" FontFamily="./Fonts/#Segoe UI" FontSize="12">
 
 	<Grid x:Name="LayoutRoot">
-		<Label Margin="8,36,8,0" VerticalAlignment="Top" Content="Label" Height="83.96"/>
-        <ScrollViewer Margin="12,96.96,8,12" Name="scrollViewer1">
+		<Label Margin="12,7,8,0" VerticalAlignment="Top" Content="Select an album, or create a new one." Height="25"/>
+        <ScrollViewer Margin="8,38,12,41" Name="scrollViewer1" BorderBrush="#FF003C74" BorderThickness="2">
             <my:AlbumSelector x:Name="_albumSelectedUC" Height="Auto" ScrollViewer.CanContentScroll="True"></my:AlbumSelector>
         </ScrollViewer>
+        
+        <Button Height="23" HorizontalAlignment="Right" Margin="0,0,8,12" Name="_cmdCancel" VerticalAlignment="Bottom" Width="75" Click="_cmdCancel_Click">Cancel</Button>
+        <Button Height="23" Margin="0,0,89,12" Name="_cmdOK" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75" Click="_cmdOK_Click">OK</Button>
     </Grid>
 </UserControl>

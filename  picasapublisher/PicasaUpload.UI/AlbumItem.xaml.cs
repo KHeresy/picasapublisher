@@ -16,6 +16,61 @@ namespace PicasaUpload.UI
 {
 	public partial class AlbumItem
 	{
+		//KEep track if we are the album selected:
+		private bool _selected = false;
+		public bool Selected 
+		{ 
+			get 
+			{ 
+				return _selected; 
+			} 
+		}
+
+		//Allows the user of this control to set the selected item:
+		public void SetSelected(bool selected)
+		{
+			SetSelected(selected, false);
+		}
+		private void SetSelected(bool selected, bool fireEvent)
+		{
+			//if the selection state is not changing, get out:
+			if (_selected == selected)
+			{
+				return;
+			}
+			_selected = selected;
+
+			Storyboard selectedStoryBoard = (Storyboard)Resources["SelectedStoryboard"];
+			if (selected)
+			{
+				selectedStoryBoard.Begin(this, true);			
+			}
+			else
+			{
+				selectedStoryBoard.Remove(this);
+			}
+
+			if (fireEvent)
+			{
+				OnSelectionChanged();
+			}
+		}
+
+		#region Selection Changed Event -- Notify parent when the user changes selection
+		//create an event, so the parent knows when our selection changed:
+		public delegate void SelectionChangedHandler(object sender, EventArgs e);
+		public event SelectionChangedHandler SelectionChanged;
+		protected void OnSelectionChanged()
+		{
+			if (SelectionChanged == null)
+			{
+				return;
+			}
+
+			SelectionChanged(this, EventArgs.Empty);
+		}
+		#endregion
+
 		private PicasaEntry _albumEntry = null;
 		public PicasaEntry AlbumEntry 
 		{ 
@@ -36,7 +91,7 @@ namespace PicasaUpload.UI
 
 			//Initialize this as a new album:
 			if (_albumEntry == null)
-			{
+			{				
 				_txtAlbumName.Text = "<New Album>";
 				_txtAlbumSummary.Text = "<Enter Summary>";
 				_cboAlbumRights.SelectedIndex = 0;
@@ -99,6 +154,24 @@ namespace PicasaUpload.UI
 		private void LayoutRoot_Loaded(object sender, RoutedEventArgs e)
 		{
 			LoadAlbumEntry();
+		}
+
+		private void LayoutRoot_GotFocus(object sender, RoutedEventArgs e)
+		{
+		}
+
+		private void UserControl_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+		{
+			SetSelected(true, true);
+		}
+
+		private void UserControl_LostFocus(object sender, RoutedEventArgs e)
+		{
+		}
+
+		private void UserControl_GotFocus(object sender, RoutedEventArgs e)
+		{
+			SetSelected(true, true);
 		}
 	}
 }
