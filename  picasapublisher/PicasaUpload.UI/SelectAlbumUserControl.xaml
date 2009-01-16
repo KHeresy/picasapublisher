@@ -4,7 +4,7 @@
     xmlns:my="clr-namespace:PicasaUpload.UI"
 	x:Class="PicasaUpload.UI.SelectAlbumUserControl"
 	x:Name="SelectAlbum"
-	Width="741" Height="480" Loaded="Window_Loaded" FontFamily="./Fonts/#Segoe UI" FontSize="12">
+	Width="741" Height="480" Loaded="Window_Loaded" FontFamily="./Fonts/#Segoe UI" FontSize="12" MinWidth="741" MaxWidth="741">
 
 	<Grid x:Name="LayoutRoot">
 		<Label Margin="12,7,8,0" VerticalAlignment="Top" Content="Select an album, or create a new one." Height="25"/>

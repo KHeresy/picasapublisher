@@ -28,10 +28,23 @@ namespace PicasaUpload.UI
             }
         }
 
+		private bool _rememberUsername = false;
+		public bool RememberUsername { get { return _rememberUsername; } set { _rememberUsername = value; } }
+		private string _username = string.Empty;
+		public string Username { get { return _username; } set { _username = value; } }
+		private DateTime _lastCheckForUpdate = DateTime.MinValue;
+		public DateTime LastCheckForUpdate { get { return _lastCheckForUpdate; } set { _lastCheckForUpdate = value; } }
+		private bool _updateAtLastCheck = true;
+		public bool UpdateAtLastCheck { get { return _updateAtLastCheck; } set { _updateAtLastCheck = value; } }
+
 		private void LoginForm_Load(object sender, EventArgs e)
 		{
             _loginWpf = new LoginWindow(_picasaPublisherApi);
             _loginWpf.CloseLoginEvent += new LoginWindow.CloseLogin(_loginWpf_CloseLoginEvent);
+			_loginWpf.RememberUsername = _rememberUsername;
+			_loginWpf.Username = _username;
+			_loginWpf.LastCheckForUpdate = _lastCheckForUpdate;
+			_loginWpf.UpdateAtLastCheck = _updateAtLastCheck;
             _wpfHost.Child = _loginWpf;
             DialogResult = DialogResult.None;
             

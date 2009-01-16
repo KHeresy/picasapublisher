@@ -270,6 +270,10 @@ namespace PicasaUpload.UI {
             
             private global::System.Data.DataColumn columnSelectedAlbumId;
             
+            private global::System.Data.DataColumn columnLastCheckForUpdate;
+            
+            private global::System.Data.DataColumn columnLastUpdateValue;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public SelectAlbumTableDataTable() {
                 this.TableName = "SelectAlbumTable";
@@ -329,6 +333,20 @@ namespace PicasaUpload.UI {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn LastCheckForUpdateColumn {
+                get {
+                    return this.columnLastCheckForUpdate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn LastUpdateValueColumn {
+                get {
+                    return this.columnLastUpdateValue;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -357,13 +375,15 @@ namespace PicasaUpload.UI {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public SelectAlbumTableRow AddSelectAlbumTableRow(bool RememberUsername, string Username, string AuthenticationToken, string SelectedAlbumId) {
+            public SelectAlbumTableRow AddSelectAlbumTableRow(bool RememberUsername, string Username, string AuthenticationToken, string SelectedAlbumId, System.DateTime LastCheckForUpdate, bool LastUpdateValue) {
                 SelectAlbumTableRow rowSelectAlbumTableRow = ((SelectAlbumTableRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         RememberUsername,
                         Username,
                         AuthenticationToken,
-                        SelectedAlbumId};
+                        SelectedAlbumId,
+                        LastCheckForUpdate,
+                        LastUpdateValue};
                 rowSelectAlbumTableRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowSelectAlbumTableRow);
                 return rowSelectAlbumTableRow;
@@ -387,6 +407,8 @@ namespace PicasaUpload.UI {
                 this.columnUsername = base.Columns["Username"];
                 this.columnAuthenticationToken = base.Columns["AuthenticationToken"];
                 this.columnSelectedAlbumId = base.Columns["SelectedAlbumId"];
+                this.columnLastCheckForUpdate = base.Columns["LastCheckForUpdate"];
+                this.columnLastUpdateValue = base.Columns["LastUpdateValue"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -399,6 +421,10 @@ namespace PicasaUpload.UI {
                 base.Columns.Add(this.columnAuthenticationToken);
                 this.columnSelectedAlbumId = new global::System.Data.DataColumn("SelectedAlbumId", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnSelectedAlbumId);
+                this.columnLastCheckForUpdate = new global::System.Data.DataColumn("LastCheckForUpdate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLastCheckForUpdate);
+                this.columnLastUpdateValue = new global::System.Data.DataColumn("LastUpdateValue", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLastUpdateValue);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -592,6 +618,36 @@ namespace PicasaUpload.UI {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.DateTime LastCheckForUpdate {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableSelectAlbumTable.LastCheckForUpdateColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'LastCheckForUpdate\' in table \'SelectAlbumTable\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSelectAlbumTable.LastCheckForUpdateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool LastUpdateValue {
+                get {
+                    try {
+                        return ((bool)(this[this.tableSelectAlbumTable.LastUpdateValueColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'LastUpdateValue\' in table \'SelectAlbumTable\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSelectAlbumTable.LastUpdateValueColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public bool IsRememberUsernameNull() {
                 return this.IsNull(this.tableSelectAlbumTable.RememberUsernameColumn);
             }
@@ -629,6 +685,26 @@ namespace PicasaUpload.UI {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetSelectedAlbumIdNull() {
                 this[this.tableSelectAlbumTable.SelectedAlbumIdColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsLastCheckForUpdateNull() {
+                return this.IsNull(this.tableSelectAlbumTable.LastCheckForUpdateColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetLastCheckForUpdateNull() {
+                this[this.tableSelectAlbumTable.LastCheckForUpdateColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsLastUpdateValueNull() {
+                return this.IsNull(this.tableSelectAlbumTable.LastUpdateValueColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetLastUpdateValueNull() {
+                this[this.tableSelectAlbumTable.LastUpdateValueColumn] = global::System.Convert.DBNull;
             }
         }
         

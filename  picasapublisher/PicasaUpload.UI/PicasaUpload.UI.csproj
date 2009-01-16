@@ -125,6 +125,7 @@
     <Compile Include="SelectAlbumDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>SelectAlbumDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="SelectAlbumForm.cs">
       <SubType>Form</SubType>
@@ -155,6 +156,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="SelectAlbumDataSet.xsc">
+      <DependentUpon>SelectAlbumDataSet.xsd</DependentUpon>
     </None>
     <None Include="SelectAlbumDataSet.xsd">
       <SubType>Designer</SubType>

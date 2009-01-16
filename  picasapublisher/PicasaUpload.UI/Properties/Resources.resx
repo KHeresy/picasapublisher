@@ -118,7 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BASE_URL" xml:space="preserve">
-    <value>http://picasapublisher.nfshost.com/</value>
+    <value>http://picasapublisher.googlecode.com/svn/website/</value>
+  </data>
+  <data name="CURRENT_VERSION_URL" xml:space="preserve">
+    <value>current_version.txt</value>
   </data>
   <data name="DONATE_URL" xml:space="preserve">
     <value>donate.html</value>
@@ -126,8 +129,23 @@
   <data name="FEEDBACK_URL" xml:space="preserve">
     <value>feedback.html</value>
   </data>
+  <data name="LATEST_VERSION_COLOR" xml:space="preserve">
+    <value>#00FF00</value>
+  </data>
+  <data name="LATEST_VERSION_TEXT" xml:space="preserve">
+    <value>You have the latest version</value>
+  </data>
+  <data name="NEED_TO_UPGRADE_COLOR" xml:space="preserve">
+    <value>#FF6361</value>
+  </data>
+  <data name="NEED_TO_UPGRADE_TEXT" xml:space="preserve">
+    <value>There is a new version.  Click to download.</value>
+  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="NewAlbumImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\NewAlbumImage.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="UPGRADE_URL" xml:space="preserve">
+    <value>download.html</value>
   </data>
 </root>

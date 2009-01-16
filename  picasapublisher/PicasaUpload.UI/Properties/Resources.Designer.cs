@@ -61,11 +61,20 @@ namespace PicasaUpload.UI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to http://picasapublisher.nfshost.com/.
+        ///   Looks up a localized string similar to http://picasapublisher.googlecode.com/svn/website/.
         /// </summary>
         internal static string BASE_URL {
             get {
                 return ResourceManager.GetString("BASE_URL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to current_version.txt.
+        /// </summary>
+        internal static string CURRENT_VERSION_URL {
+            get {
+                return ResourceManager.GetString("CURRENT_VERSION_URL", resourceCulture);
             }
         }
         
@@ -87,10 +96,55 @@ namespace PicasaUpload.UI.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to #00FF00.
+        /// </summary>
+        internal static string LATEST_VERSION_COLOR {
+            get {
+                return ResourceManager.GetString("LATEST_VERSION_COLOR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have the latest version.
+        /// </summary>
+        internal static string LATEST_VERSION_TEXT {
+            get {
+                return ResourceManager.GetString("LATEST_VERSION_TEXT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to #FF6361.
+        /// </summary>
+        internal static string NEED_TO_UPGRADE_COLOR {
+            get {
+                return ResourceManager.GetString("NEED_TO_UPGRADE_COLOR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is a new version.  Click to download..
+        /// </summary>
+        internal static string NEED_TO_UPGRADE_TEXT {
+            get {
+                return ResourceManager.GetString("NEED_TO_UPGRADE_TEXT", resourceCulture);
+            }
+        }
+        
         internal static System.Drawing.Bitmap NewAlbumImage {
             get {
                 object obj = ResourceManager.GetObject("NewAlbumImage", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to download.html.
+        /// </summary>
+        internal static string UPGRADE_URL {
+            get {
+                return ResourceManager.GetString("UPGRADE_URL", resourceCulture);
             }
         }
     }
