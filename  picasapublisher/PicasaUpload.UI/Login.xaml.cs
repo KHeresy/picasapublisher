@@ -35,8 +35,6 @@ namespace PicasaUpload.UI
 		private string _authenticationToken;
 		public string AuthenticationToken { get { return _authenticationToken; } set { _authenticationToken = value; } }
 
-
-
         public LoginWindow(Picasa picasaApi)
         {
             InitializeComponent();
@@ -109,6 +107,19 @@ namespace PicasaUpload.UI
             }
         }
         #endregion
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(_txtUsername.Text))
+            {
+                _txtUsername.Focus();
+            }
+            else
+            {
+                _txtPassword.Focus();
+            }
+
+        }
 
 
 

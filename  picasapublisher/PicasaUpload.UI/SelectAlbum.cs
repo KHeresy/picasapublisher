@@ -8,6 +8,8 @@ using System.Reflection;
 using System.Net;
 using System.IO;
 
+using Google.GData.Photos;
+
 namespace PicasaUpload.UI
 {
     public static class SelectAlbum
@@ -58,6 +60,9 @@ namespace PicasaUpload.UI
 			selectedAlbumId = selectAlbum.SelectedAlbum;
 			if (selectedAlbumId == string.Empty)
 			{
+                //we need to create a new album
+                PicasaEntry newAlbum = picasa.CreateAlbum(selectAlbum.AlbumName, selectAlbum.AlbumSummary, selectAlbum.AlbumRights);
+                selectedAlbumId = newAlbum.Id.Uri.ToString();
 			}
 
 

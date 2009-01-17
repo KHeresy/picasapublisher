@@ -49,6 +49,12 @@ namespace PicasaUpload.UI
 		public event CloseWindowHandler CloseWindow;
 		protected void OnCloseWindow()
 		{
+            //validate:
+            if (ValidateUI() == false)
+            {
+                return;
+            }
+
 			if( CloseWindow == null )
 			{
 				return;
@@ -57,7 +63,27 @@ namespace PicasaUpload.UI
 			CloseWindow(this, EventArgs.Empty);
 		}
 
+        //is the UI ok:
+        private bool ValidateUI()
+        {
+            if (string.IsNullOrEmpty(SelectedAlbum))
+            {
+                if (string.IsNullOrEmpty(AlbumName))
+                {
+                    MessageBox.Show("Please enter an Album Name.", "Enter an Album Name");
+                    return false;
+                }
+            }
+
+            return true;
+
+        }
+
+
 		public string SelectedAlbum { get { return _albumSelectedUC.SelectedAlbum; } }
+        public string AlbumName { get { return _albumSelectedUC.SelectedAlbumName; } }
+        public string AlbumSummary { get { return _albumSelectedUC.SelectedAlbumSummary; } }
+        public string AlbumRights { get { return _albumSelectedUC.SelectedAlbumRights; } }
 
 		#endregion
 

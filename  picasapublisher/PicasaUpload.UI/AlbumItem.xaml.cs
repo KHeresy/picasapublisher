@@ -16,6 +16,8 @@ namespace PicasaUpload.UI
 {
 	public partial class AlbumItem
 	{
+        private bool _notEdited = true;
+
 		//KEep track if we are the album selected:
 		private bool _selected = false;
 		public bool Selected 
@@ -81,6 +83,23 @@ namespace PicasaUpload.UI
 				LoadAlbumEntry();
 			} 
 		}
+
+        public string AlbumName { get { return _txtAlbumName.Text; } }
+        public string AlbumSummary { get { return _txtAlbumSummary.Text; } }
+        public string AlbumRights 
+        { 
+            get 
+            {
+                if (_cboAlbumRights.SelectedIndex == 0)
+                {
+                    return "public";
+                }
+                else
+                {
+                    return "private";
+                }
+            } 
+        }
 
 		private void LoadAlbumEntry()
 		{
@@ -173,5 +192,38 @@ namespace PicasaUpload.UI
 		{
 			SetSelected(true, true);
 		}
+
+        private void _txtAlbumName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void _txtAlbumName_GotFocus(object sender, RoutedEventArgs e)
+        {
+            ClearBoxes();
+        }
+
+        private void _txtAlbumSummary_GotFocus(object sender, RoutedEventArgs e)
+        {
+            ClearBoxes();
+        }
+
+        private void ClearBoxes()
+        {
+            if (_notEdited == false)
+            {
+                return;
+            }
+            if (_txtAlbumName.IsReadOnly == false && !string.IsNullOrEmpty(_txtAlbumName.Text))
+            {
+                _txtAlbumName.Text = "";
+            }
+            if (_txtAlbumSummary.IsReadOnly == false && !string.IsNullOrEmpty(_txtAlbumSummary.Text))
+            {
+                _txtAlbumSummary.Text = "";
+            }
+
+            _notEdited = false;
+        }
 	}
 }

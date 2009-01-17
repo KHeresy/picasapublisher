@@ -36,11 +36,35 @@ namespace PicasaUpload.GoogleApi
         /// <returns>The PicasaFeed of albums.</returns>
         public PicasaFeed GetAlbums()
         {
-            AlbumQuery query = new AlbumQuery(PicasaQuery.CreatePicasaUri("default"));
+            AlbumQuery query = new AlbumQuery(PicasaQuery.CreatePicasaUri(DEFAULT_USER_ID));
 
             PicasaFeed feed = _picasaService.Query(query);
 
             return feed;
+        }
+
+        /// <summary>
+        /// Creates an album
+        /// </summary>
+        /// <param name="albumName"></param>
+        /// <param name="albumSummary"></param>
+        /// <param name="albumRights"></param>
+        /// <returns></returns>
+        public PicasaEntry CreateAlbum(string albumName, string albumSummary, string albumRights)
+        {
+            AlbumEntry newAlbum = new AlbumEntry();
+            newAlbum.Title.Text = albumName;
+            newAlbum.Summary.Text = albumSummary;
+
+            AlbumAccessor ac = new AlbumAccessor(newAlbum);
+            //set to "private" for a private album
+            ac.Access = albumRights;
+
+            Uri feedUri = new Uri(PicasaQuery.CreatePicasaUri(DEFAULT_USER_ID));
+
+            PicasaEntry createdEntry = (PicasaEntry)_picasaService.Insert(feedUri, newAlbum);
+
+            return createdEntry;            
         }
 
         /// <summary>

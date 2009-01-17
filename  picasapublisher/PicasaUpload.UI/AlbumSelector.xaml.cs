@@ -92,7 +92,8 @@ namespace PicasaUpload.UI
 			_selectedAlbumControl = (AlbumItem)sender;
 		}
 
-		public string SelectedAlbum { 
+		public string SelectedAlbum 
+        { 
 			get 
 			{
 				if (_selectedAlbumControl.AlbumEntry == null)
@@ -103,7 +104,16 @@ namespace PicasaUpload.UI
 				return _selectedAlbumControl.AlbumEntry.Id.Uri.ToString(); 
 			} 
 		}
+
+        public string SelectedAlbumName { get { return _selectedAlbumControl.AlbumName; } }
+        public string SelectedAlbumSummary { get { return _selectedAlbumControl.AlbumSummary; } }
+        public string SelectedAlbumRights { get { return _selectedAlbumControl.AlbumRights; } }
+
+
 		#endregion
+
+
+
 
 	}
 }
