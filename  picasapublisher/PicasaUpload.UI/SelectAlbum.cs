@@ -7,7 +7,7 @@ using System.Data;
 using System.Reflection;
 using System.Net;
 using System.IO;
-
+using System.Windows.Forms;
 using Google.GData.Photos;
 
 namespace PicasaUpload.UI
@@ -29,6 +29,8 @@ namespace PicasaUpload.UI
         {
             Picasa picasa = new Picasa(APP_NAME);
 
+            Cursor.Current = Cursors.WaitCursor;
+
 			LoginForm login = new LoginForm();
             login.PicasaPublisherApi = picasa;
 			login.RememberUsername = rememberUserEmail;
@@ -48,7 +50,7 @@ namespace PicasaUpload.UI
 
                         
             //Display UI for selecting album:
-            string selectedAlbumId = string.Empty;
+            PicasaEntry selectedAlbumEntry = null;
 			SelectAlbumForm selectAlbum = new SelectAlbumForm();
 			selectAlbum.PicasaPublisherApi = picasa;
 			if (selectAlbum.ShowDialog() != System.Windows.Forms.DialogResult.OK)
@@ -57,17 +59,25 @@ namespace PicasaUpload.UI
 			}
             
             //Create new album if necessary
-			selectedAlbumId = selectAlbum.SelectedAlbum;
-			if (selectedAlbumId == string.Empty)
+            selectedAlbumEntry = selectAlbum.SelectedAlbumEntry;
+            if (selectedAlbumEntry == null)
 			{
                 //we need to create a new album
                 PicasaEntry newAlbum = picasa.CreateAlbum(selectAlbum.AlbumName, selectAlbum.AlbumSummary, selectAlbum.AlbumRights);
-                selectedAlbumId = newAlbum.Id.Uri.ToString();
+                selectedAlbumEntry = newAlbum;
 			}
 
 
+            //test post a photo:
+            string file = @"d:\house\desktop\100_9853-1.jpg";
+            System.IO.FileInfo fileInfo = new System.IO.FileInfo(file);
+            System.IO.FileStream fileStream = fileInfo.OpenRead();
+            picasa.PostPhoto(selectedAlbumEntry, fileStream, file);
+            fileStream.Close();
+
+
             //Gather up what needs to be returned to the user:
-            return BuildSelectAlbumUIDatatable(rememberUsername, username, authenticationToken, selectedAlbumId, lastUpdateCheck, updateAtLastCheck);
+            return BuildSelectAlbumUIDatatable(rememberUsername, username, authenticationToken, selectedAlbumEntry, lastUpdateCheck, updateAtLastCheck);
         }
 
 
@@ -106,17 +116,17 @@ namespace PicasaUpload.UI
 			return true;
 		}
 
-        private static SelectAlbumDataSet BuildSelectAlbumUIDatatable(bool rememberUsername, string username, string authenticationToken, string selectedAlbumId, DateTime lastUpdateCheck, bool updateAtLastCheck)
+        private static SelectAlbumDataSet BuildSelectAlbumUIDatatable(bool rememberUsername, string username, string authenticationToken, PicasaEntry selectedAlbumEntry, DateTime lastUpdateCheck, bool updateAtLastCheck)
         {
             //this should be a strongly typed dataset:
             SelectAlbumDataSet ret = new SelectAlbumDataSet();
             SelectAlbumDataSet.SelectAlbumTableRow row = ret.SelectAlbumTable.NewSelectAlbumTableRow();
-            row.SelectedAlbumId = selectedAlbumId;
             row.Username = username;
             row.RememberUsername = rememberUsername;
             row.AuthenticationToken = authenticationToken;
 			row.LastCheckForUpdate = lastUpdateCheck;
 			row.LastUpdateValue = updateAtLastCheck;
+            row.SelectedAlbumEntry = selectedAlbumEntry;
 
             ret.SelectAlbumTable.Rows.Add(row);
 

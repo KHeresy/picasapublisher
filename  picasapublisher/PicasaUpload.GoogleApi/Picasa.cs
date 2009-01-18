@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Google.GData.Photos;
+using System.IO;
 
 
 namespace PicasaUpload.GoogleApi
@@ -68,6 +69,23 @@ namespace PicasaUpload.GoogleApi
         }
 
         /// <summary>
+        /// Posts a photo:
+        /// </summary>
+        /// <param name="albumId"></param>
+        /// <param name="photoStream"></param>
+        /// <param name="filename"></param>
+        /// <returns></returns>
+        public PicasaEntry PostPhoto(PicasaEntry albumEntry, Stream photoStream, string filename)
+        {
+            //it is album name, not ID
+            Uri postUri = new Uri(PicasaQuery.CreatePicasaUri(DEFAULT_USER_ID, albumEntry.Title.Text));
+
+            PicasaEntry entry = (PicasaEntry)_picasaService.Insert(postUri, photoStream, "image/jpeg", filename);
+
+            return entry;
+        }
+
+        /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="appName"></param>
@@ -85,5 +103,27 @@ namespace PicasaUpload.GoogleApi
             _picasaService = new PicasaService(appName);
             _picasaService.SetAuthenticationToken(authenticationToken);
         }
+
+
+        #region static methods
+
+        /// <summary>
+        /// ID's are sometimes hidden at the end of a long url, returns only the ID;
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public static string GetIdFromUrl(string url)
+        {
+            int lastSlash = url.LastIndexOf('/');
+            if (lastSlash < 0)
+            {
+                return url;
+            }
+
+            return url.Substring(lastSlash + 1);
+        }
+
+        #endregion
+
     }
 }

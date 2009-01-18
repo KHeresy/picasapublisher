@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using GoogleApi;
 using System.Xml;
+using PicasaUpload.UI;
+using PicasaUpload.GoogleApi;
 
 namespace PicasaUpload
 {
@@ -17,10 +18,14 @@ namespace PicasaUpload
 		private const string PERSIST_NODE_NAME = "PicasaPublisherPersistInfo";
 		private const string REMEMBER_USER_EMAIL_NODE_NAME = "rememberUserEmail";
 		private const string USER_EMAIL_NODE_NAME = "userEmail";
-		private const string PERSIST_XML_FORMAT = "<PicasaPublisherPersistInfo><rememberUserEmail>{0}</rememberUserEmail><userEmail>{1}</userEmail></PicasaPublisherPersistInfo>";
+        private const string LAST_UPDATE_CHECK_NODE_NAME = "lastUpdateCheck";
+        private const string LAST_UPDATE_VALUE_NODE_NAME = "lastUpdateValue";
+		private const string PERSIST_XML_FORMAT = "<PicasaPublisherPersistInfo><rememberUserEmail>{0}</rememberUserEmail><userEmail>{1}</userEmail><lastUPdateCheck>{2}</lastUpdateCheck><lastUpdateValue>{3}</lastUpdateValue</PicasaPublisherPersistInfo>";
 		private const string GOOGLE_SETTINGS_NODE_NAME = "GoogleSettings";
 		private const string AUTH_KEY_NODE_NAME = "AuthKey";
 		private const string SELECTED_ALBUM_NODE_NAME = "AlbumId";
+        private const string DATE_FORMAT = "yyyy-MM-dd";
+
 
 		#endregion
 		/*
@@ -69,7 +74,20 @@ namespace PicasaUpload
 			string albumId = googleSettings[SELECTED_ALBUM_NODE_NAME].InnerText;
 
 			//Actually post the photo:
-			return GoogleApi.PicasaWebAlbums.PicasaWebAlbumsRequest.PostPhotoWithoutMetadata(albumId, stream, filename, new GoogleApi.GoogleAuthorizationToken(googleAuthKey));
+			//return GoogleApi.PicasaWebAlbums.PicasaWebAlbumsRequest.PostPhotoWithoutMetadata(albumId, stream, filename, new GoogleApi.GoogleAuthorizationToken(googleAuthKey));
+
+            try
+            {
+                GoogleApi.Picasa picasa = new Picasa(SelectAlbum.APP_NAME, googleAuthKey);
+                //picasa.PostPhoto(albumId, stream, filename);
+            }
+            catch (Exception x)
+            {
+                MessageBox.Show(x.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            return true;
 
 		}
 
@@ -85,36 +103,30 @@ namespace PicasaUpload
 		{
 			try
 			{
-				LoginForm form = new LoginForm();
-
 				//User may have choosen to save their username, so get that information from PersistXml:
 				bool rememberUserEmail;
 				string userEmail;
-				LoadPersistInformation(persistXml, out rememberUserEmail, out userEmail);
+                DateTime lastUpdateCheck;
+                bool updateAtLastCheck;
+				LoadPersistInformation(persistXml, out rememberUserEmail, out userEmail, out lastUpdateCheck, out updateAtLastCheck);
 
-				form.RememberUserEmail = rememberUserEmail;
-				form.UserEmail = userEmail;
+                SelectAlbumDataSet albumSelectedDS = SelectAlbum.SelectAlbumUI(rememberUserEmail, userEmail, lastUpdateCheck, updateAtLastCheck);
+                if (albumSelectedDS == null)
+                {
+                    return false;
+                }
 
+                SelectAlbumDataSet.SelectAlbumTableRow selectedAlbumRow = (SelectAlbumDataSet.SelectAlbumTableRow)albumSelectedDS.SelectAlbumTable.Rows[0];
+                SaveSessionInformation(sessionXml, selectedAlbumRow.AuthenticationToken, selectedAlbumRow.SelectedAlbumId);
+                SavePersistInformation(persistXml, selectedAlbumRow.RememberUsername, selectedAlbumRow.Username, selectedAlbumRow.LastCheckForUpdate, selectedAlbumRow.LastUpdateValue);
 
-				if (form.ShowDialog() == DialogResult.OK)
-				{
-					//We need to remember the Google Authorization Token, and the album the user selected:
-
-					SaveSessionInformation(sessionXml, form.GoogleAuthKey, form.SelectedAlbumId);
-
-					SavePersistInformation(persistXml, form.RememberUserEmail, form.UserEmail);
-
-					return true;
-				}
+                return true;
 			}
 			catch (Exception x)
 			{
 				MessageBox.Show(x.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				return false;
 			}
-
-
-			return false;
 		}
 
 
@@ -132,11 +144,13 @@ namespace PicasaUpload
 		/// <param name="persistXml"></param>
 		/// <param name="rememberUserEmail"></param>
 		/// <param name="userEmail"></param>
-		private void LoadPersistInformation(XmlDocument persistXml, out bool rememberUserEmail, out string userEmail)
+		private void LoadPersistInformation(XmlDocument persistXml, out bool rememberUserEmail, out string userEmail, out DateTime lastUpdateCheck, out bool lastUpdateValue)
 		{
 			//initialize our out variables
 			rememberUserEmail = false;
 			userEmail = string.Empty;
+            lastUpdateCheck = DateTime.MinValue;
+            lastUpdateValue = false;
 
 			//Get our xml node, and return if it does not exist:
 			XmlNode persistXmlNode = persistXml[PERSIST_NODE_NAME];
@@ -148,6 +162,9 @@ namespace PicasaUpload
 			//Get our values from our persisXmlNode:
 			rememberUserEmail = bool.Parse(persistXmlNode[REMEMBER_USER_EMAIL_NODE_NAME].InnerText);
 			userEmail = persistXmlNode[USER_EMAIL_NODE_NAME].InnerText;
+            lastUpdateCheck = DateTime.ParseExact(DATE_FORMAT, persistXml[LAST_UPDATE_CHECK_NODE_NAME].InnerText, System.Globalization.CultureInfo.InvariantCulture);
+            lastUpdateValue = bool.Parse(persistXml[LAST_UPDATE_VALUE_NODE_NAME].InnerText);
+
 
 		}
 
@@ -157,10 +174,15 @@ namespace PicasaUpload
 		/// <param name="persistXml"></param>
 		/// <param name="rememberUserEmail"></param>
 		/// <param name="userEmail"></param>
-		private void SavePersistInformation(XmlDocument persistXml, bool rememberUserEmail, string userEmail)
+        private void SavePersistInformation(XmlDocument persistXml, bool rememberUserEmail, string userEmail, DateTime lastUpdateCheck, bool lastUpdateValue)
 		{
 			//Get our persist node format (If we start saving more then this, then we might have to start manipulating the XmlDocument directly:
-			string persistNodeXml = string.Format(PERSIST_XML_FORMAT, rememberUserEmail.ToString(), rememberUserEmail ? userEmail : string.Empty);
+			string persistNodeXml = string.Format(PERSIST_XML_FORMAT, 
+                                                    rememberUserEmail.ToString(), 
+                                                    rememberUserEmail ? userEmail : string.Empty,
+                                                    lastUpdateCheck.ToString(DATE_FORMAT, System.Globalization.CultureInfo.InvariantCulture), 
+                                                    lastUpdateValue.ToString()
+                                                 );
 			XmlDocument newPersistDoc = new XmlDocument();
 			newPersistDoc.LoadXml(persistNodeXml);
 
@@ -185,7 +207,7 @@ namespace PicasaUpload
 		/// <param name="sessionXml"></param>
 		/// <param name="token"></param>
 		/// <param name="selectedAlbumId"></param>
-		private static void SaveSessionInformation(System.Xml.XmlDocument sessionXml, GoogleApi.GoogleAuthorizationToken token, string selectedAlbumId)
+		private static void SaveSessionInformation(System.Xml.XmlDocument sessionXml, string authToken, string selectedAlbumId)
 		{
 			XmlElement settings = sessionXml[GOOGLE_SETTINGS_NODE_NAME];
 			XmlElement authKey = null;
@@ -205,7 +227,7 @@ namespace PicasaUpload
 				albumId = settings[SELECTED_ALBUM_NODE_NAME];
 			}
 
-			authKey.InnerText = token.AuthorizationToken;
+			authKey.InnerText = authToken;
 			albumId.InnerText = selectedAlbumId;
 		}
 

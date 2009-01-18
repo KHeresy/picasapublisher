@@ -104,6 +104,7 @@ namespace PicasaUpload.UI
 				return _selectedAlbumControl.AlbumEntry.Id.Uri.ToString(); 
 			} 
 		}
+        public PicasaEntry SelectedAlbumEntry { get { return _selectedAlbumControl.AlbumEntry; } }
 
         public string SelectedAlbumName { get { return _selectedAlbumControl.AlbumName; } }
         public string SelectedAlbumSummary { get { return _selectedAlbumControl.AlbumSummary; } }

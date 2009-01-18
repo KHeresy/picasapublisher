@@ -41,6 +41,7 @@ namespace PicasaUpload.UI
 
 		}
 
+        public Google.GData.Photos.PicasaEntry SelectedAlbumEntry { get { return _selectAlbumUserControl.SelectedAlbumEntry; } }
 		public string SelectedAlbum { get { return _selectAlbumUserControl.SelectedAlbum; } }
         public string AlbumName { get { return _selectAlbumUserControl.AlbumName; } }
         public string AlbumSummary { get { return _selectAlbumUserControl.AlbumSummary; } }

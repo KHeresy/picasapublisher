@@ -274,6 +274,8 @@ namespace PicasaUpload.UI {
             
             private global::System.Data.DataColumn columnLastUpdateValue;
             
+            private global::System.Data.DataColumn columnSelectedAlbumEntry;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public SelectAlbumTableDataTable() {
                 this.TableName = "SelectAlbumTable";
@@ -347,6 +349,13 @@ namespace PicasaUpload.UI {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn SelectedAlbumEntryColumn {
+                get {
+                    return this.columnSelectedAlbumEntry;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -375,7 +384,7 @@ namespace PicasaUpload.UI {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public SelectAlbumTableRow AddSelectAlbumTableRow(bool RememberUsername, string Username, string AuthenticationToken, string SelectedAlbumId, System.DateTime LastCheckForUpdate, bool LastUpdateValue) {
+            public SelectAlbumTableRow AddSelectAlbumTableRow(bool RememberUsername, string Username, string AuthenticationToken, string SelectedAlbumId, System.DateTime LastCheckForUpdate, bool LastUpdateValue, Google.GData.Photos.PicasaEntry SelectedAlbumEntry) {
                 SelectAlbumTableRow rowSelectAlbumTableRow = ((SelectAlbumTableRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         RememberUsername,
@@ -383,7 +392,8 @@ namespace PicasaUpload.UI {
                         AuthenticationToken,
                         SelectedAlbumId,
                         LastCheckForUpdate,
-                        LastUpdateValue};
+                        LastUpdateValue,
+                        SelectedAlbumEntry};
                 rowSelectAlbumTableRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowSelectAlbumTableRow);
                 return rowSelectAlbumTableRow;
@@ -409,6 +419,7 @@ namespace PicasaUpload.UI {
                 this.columnSelectedAlbumId = base.Columns["SelectedAlbumId"];
                 this.columnLastCheckForUpdate = base.Columns["LastCheckForUpdate"];
                 this.columnLastUpdateValue = base.Columns["LastUpdateValue"];
+                this.columnSelectedAlbumEntry = base.Columns["SelectedAlbumEntry"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -425,6 +436,8 @@ namespace PicasaUpload.UI {
                 base.Columns.Add(this.columnLastCheckForUpdate);
                 this.columnLastUpdateValue = new global::System.Data.DataColumn("LastUpdateValue", typeof(bool), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnLastUpdateValue);
+                this.columnSelectedAlbumEntry = new global::System.Data.DataColumn("SelectedAlbumEntry", typeof(global::Google.GData.Photos.PicasaEntry), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSelectedAlbumEntry);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -648,6 +661,21 @@ namespace PicasaUpload.UI {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public Google.GData.Photos.PicasaEntry SelectedAlbumEntry {
+                get {
+                    try {
+                        return ((global::Google.GData.Photos.PicasaEntry)(this[this.tableSelectAlbumTable.SelectedAlbumEntryColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'SelectedAlbumEntry\' in table \'SelectAlbumTable\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSelectAlbumTable.SelectedAlbumEntryColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public bool IsRememberUsernameNull() {
                 return this.IsNull(this.tableSelectAlbumTable.RememberUsernameColumn);
             }
@@ -705,6 +733,16 @@ namespace PicasaUpload.UI {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetLastUpdateValueNull() {
                 this[this.tableSelectAlbumTable.LastUpdateValueColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsSelectedAlbumEntryNull() {
+                return this.IsNull(this.tableSelectAlbumTable.SelectedAlbumEntryColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetSelectedAlbumEntryNull() {
+                this[this.tableSelectAlbumTable.SelectedAlbumEntryColumn] = global::System.Convert.DBNull;
             }
         }
         

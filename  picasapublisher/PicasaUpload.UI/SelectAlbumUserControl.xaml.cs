@@ -81,6 +81,7 @@ namespace PicasaUpload.UI
 
 
 		public string SelectedAlbum { get { return _albumSelectedUC.SelectedAlbum; } }
+        public PicasaEntry SelectedAlbumEntry { get { return _albumSelectedUC.SelectedAlbumEntry; } }
         public string AlbumName { get { return _albumSelectedUC.SelectedAlbumName; } }
         public string AlbumSummary { get { return _albumSelectedUC.SelectedAlbumSummary; } }
         public string AlbumRights { get { return _albumSelectedUC.SelectedAlbumRights; } }
