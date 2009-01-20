@@ -20,7 +20,7 @@ namespace PicasaUpload
 		private const string USER_EMAIL_NODE_NAME = "userEmail";
         private const string LAST_UPDATE_CHECK_NODE_NAME = "lastUpdateCheck";
         private const string LAST_UPDATE_VALUE_NODE_NAME = "lastUpdateValue";
-		private const string PERSIST_XML_FORMAT = "<PicasaPublisherPersistInfo><rememberUserEmail>{0}</rememberUserEmail><userEmail>{1}</userEmail><lastUPdateCheck>{2}</lastUpdateCheck><lastUpdateValue>{3}</lastUpdateValue</PicasaPublisherPersistInfo>";
+		private const string PERSIST_XML_FORMAT = "<PicasaPublisherPersistInfo><rememberUserEmail>{0}</rememberUserEmail><userEmail>{1}</userEmail><lastUpdateCheck>{2}</lastUpdateCheck><lastUpdateValue>{3}</lastUpdateValue></PicasaPublisherPersistInfo>";
 		private const string GOOGLE_SETTINGS_NODE_NAME = "GoogleSettings";
 		private const string AUTH_KEY_NODE_NAME = "AuthKey";
 		private const string SELECTED_ALBUM_NODE_NAME = "AlbumId";
@@ -71,15 +71,15 @@ namespace PicasaUpload
 			//get our information out of session:
 			XmlElement googleSettings = sessionXml.DocumentElement[GOOGLE_SETTINGS_NODE_NAME];
 			string googleAuthKey = googleSettings[AUTH_KEY_NODE_NAME].InnerText;
-			string albumId = googleSettings[SELECTED_ALBUM_NODE_NAME].InnerText;
+			string albumName = googleSettings[SELECTED_ALBUM_NODE_NAME].InnerText;
 
 			//Actually post the photo:
-			//return GoogleApi.PicasaWebAlbums.PicasaWebAlbumsRequest.PostPhotoWithoutMetadata(albumId, stream, filename, new GoogleApi.GoogleAuthorizationToken(googleAuthKey));
+			//return GoogleApi.PicasaWebAlbums.PicasaWebAlbumsRequest.PostPhotoWithoutMetadata(albumName, stream, filename, new GoogleApi.GoogleAuthorizationToken(googleAuthKey));
 
             try
             {
                 GoogleApi.Picasa picasa = new Picasa(SelectAlbum.APP_NAME, googleAuthKey);
-                //picasa.PostPhoto(albumId, stream, filename);
+                picasa.PostPhoto(albumName, stream, filename);
             }
             catch (Exception x)
             {
@@ -117,7 +117,7 @@ namespace PicasaUpload
                 }
 
                 SelectAlbumDataSet.SelectAlbumTableRow selectedAlbumRow = (SelectAlbumDataSet.SelectAlbumTableRow)albumSelectedDS.SelectAlbumTable.Rows[0];
-                SaveSessionInformation(sessionXml, selectedAlbumRow.AuthenticationToken, selectedAlbumRow.SelectedAlbumId);
+                SaveSessionInformation(sessionXml, selectedAlbumRow.AuthenticationToken, selectedAlbumRow.SelectedAlbumEntry.Title.Text);
                 SavePersistInformation(persistXml, selectedAlbumRow.RememberUsername, selectedAlbumRow.Username, selectedAlbumRow.LastCheckForUpdate, selectedAlbumRow.LastUpdateValue);
 
                 return true;

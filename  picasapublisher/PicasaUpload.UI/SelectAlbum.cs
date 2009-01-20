@@ -67,15 +67,6 @@ namespace PicasaUpload.UI
                 selectedAlbumEntry = newAlbum;
 			}
 
-
-            //test post a photo:
-            string file = @"d:\house\desktop\100_9853-1.jpg";
-            System.IO.FileInfo fileInfo = new System.IO.FileInfo(file);
-            System.IO.FileStream fileStream = fileInfo.OpenRead();
-            picasa.PostPhoto(selectedAlbumEntry, fileStream, file);
-            fileStream.Close();
-
-
             //Gather up what needs to be returned to the user:
             return BuildSelectAlbumUIDatatable(rememberUsername, username, authenticationToken, selectedAlbumEntry, lastUpdateCheck, updateAtLastCheck);
         }

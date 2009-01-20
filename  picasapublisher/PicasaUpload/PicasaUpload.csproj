@@ -72,10 +72,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GoogleApi\GoogleApi.csproj">
-      <Project>{6D769838-38EA-494B-9607-BB53EB7E94D5}</Project>
-      <Name>GoogleApi</Name>
-    </ProjectReference>
     <ProjectReference Include="..\PicasaUpload.GoogleApi\PicasaUpload.GoogleApi.csproj">
       <Project>{51C03500-A112-47FF-BD3E-2BFEBC780FE5}</Project>
       <Name>PicasaUpload.GoogleApi</Name>

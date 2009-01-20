@@ -77,12 +77,25 @@ namespace PicasaUpload.GoogleApi
         /// <returns></returns>
         public PicasaEntry PostPhoto(PicasaEntry albumEntry, Stream photoStream, string filename)
         {
+            return PostPhoto(albumEntry.Title.Text, photoStream, filename);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="albumName"></param>
+        /// <param name="photoStream"></param>
+        /// <param name="filename"></param>
+        /// <returns></returns>
+        public PicasaEntry PostPhoto(string albumName, Stream photoStream, string filename)
+        {
             //it is album name, not ID
-            Uri postUri = new Uri(PicasaQuery.CreatePicasaUri(DEFAULT_USER_ID, albumEntry.Title.Text));
+            Uri postUri = new Uri(PicasaQuery.CreatePicasaUri(DEFAULT_USER_ID, albumName));
 
             PicasaEntry entry = (PicasaEntry)_picasaService.Insert(postUri, photoStream, "image/jpeg", filename);
 
             return entry;
+
         }
 
         /// <summary>
