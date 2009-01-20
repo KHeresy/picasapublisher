@@ -118,25 +118,10 @@ namespace PicasaUpload.GoogleApi
         }
 
 
-        #region static methods
+        public string AuthenticationToken { get { return _picasaService.QueryAuthenticationToken(); } }
 
-        /// <summary>
-        /// ID's are sometimes hidden at the end of a long url, returns only the ID;
-        /// </summary>
-        /// <param name="url"></param>
-        /// <returns></returns>
-        public static string GetIdFromUrl(string url)
-        {
-            int lastSlash = url.LastIndexOf('/');
-            if (lastSlash < 0)
-            {
-                return url;
-            }
 
-            return url.Substring(lastSlash + 1);
-        }
 
-        #endregion
 
     }
 }

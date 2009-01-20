@@ -162,9 +162,18 @@ namespace PicasaUpload
 			//Get our values from our persisXmlNode:
 			rememberUserEmail = bool.Parse(persistXmlNode[REMEMBER_USER_EMAIL_NODE_NAME].InnerText);
 			userEmail = persistXmlNode[USER_EMAIL_NODE_NAME].InnerText;
-            lastUpdateCheck = DateTime.ParseExact(DATE_FORMAT, persistXml[LAST_UPDATE_CHECK_NODE_NAME].InnerText, System.Globalization.CultureInfo.InvariantCulture);
-            lastUpdateValue = bool.Parse(persistXml[LAST_UPDATE_VALUE_NODE_NAME].InnerText);
 
+			XmlElement lastUpdateCheckElement = persistXml[LAST_UPDATE_CHECK_NODE_NAME];
+			if (lastUpdateCheckElement != null)
+			{
+				lastUpdateCheck = DateTime.ParseExact(DATE_FORMAT, lastUpdateCheckElement.InnerText, System.Globalization.CultureInfo.InvariantCulture);
+			}
+
+			XmlElement lastUpdateValueElement = persistXml[LAST_UPDATE_VALUE_NODE_NAME];
+			if (lastUpdateValueElement != null)
+			{
+				lastUpdateValue = bool.Parse(lastUpdateValueElement.InnerText);
+			}
 
 		}
 
