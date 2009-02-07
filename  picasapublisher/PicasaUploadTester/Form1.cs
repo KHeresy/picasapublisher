@@ -29,7 +29,7 @@ namespace PicasaUploadTester
 
 		private void button2_Click(object sender, EventArgs e)
 		{
-			PicasaUpload.UI.SelectAlbum.SelectAlbumUI(true, "mlsteeves@gmail.com", DateTime.Now, false);
+			PicasaUpload.UI.SelectAlbum.SelectAlbumUI(true, "mlsteeves@gmail.com", DateTime.Now, false, 1600);
 		}
 	}
 }

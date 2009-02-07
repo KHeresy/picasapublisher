@@ -20,7 +20,8 @@ namespace PicasaUpload
 		private const string USER_EMAIL_NODE_NAME = "userEmail";
         private const string LAST_UPDATE_CHECK_NODE_NAME = "lastUpdateCheck";
         private const string LAST_UPDATE_VALUE_NODE_NAME = "lastUpdateValue";
-		private const string PERSIST_XML_FORMAT = "<PicasaPublisherPersistInfo><rememberUserEmail>{0}</rememberUserEmail><userEmail>{1}</userEmail><lastUpdateCheck>{2}</lastUpdateCheck><lastUpdateValue>{3}</lastUpdateValue></PicasaPublisherPersistInfo>";
+        private const string PHOTO_SIZE_NODE_NAME = "photoSize";
+		private const string PERSIST_XML_FORMAT = "<PicasaPublisherPersistInfo><rememberUserEmail>{0}</rememberUserEmail><userEmail>{1}</userEmail><lastUpdateCheck>{2}</lastUpdateCheck><lastUpdateValue>{3}</lastUpdateValue><photoSize>{4:d}</photoSize></PicasaPublisherPersistInfo>";
 		private const string GOOGLE_SETTINGS_NODE_NAME = "GoogleSettings";
 		private const string AUTH_KEY_NODE_NAME = "AuthKey";
 		private const string SELECTED_ALBUM_NODE_NAME = "AlbumId";
@@ -108,17 +109,18 @@ namespace PicasaUpload
 				string userEmail;
                 DateTime lastUpdateCheck;
                 bool updateAtLastCheck;
-				LoadPersistInformation(persistXml, out rememberUserEmail, out userEmail, out lastUpdateCheck, out updateAtLastCheck);
+                int photoSize;
+				LoadPersistInformation(persistXml, out rememberUserEmail, out userEmail, out lastUpdateCheck, out updateAtLastCheck, out photoSize);
 
-                SelectAlbumDataSet albumSelectedDS = SelectAlbum.SelectAlbumUI(rememberUserEmail, userEmail, lastUpdateCheck, updateAtLastCheck);
+                SelectAlbumDataSet albumSelectedDS = SelectAlbum.SelectAlbumUI(rememberUserEmail, userEmail, lastUpdateCheck, updateAtLastCheck, photoSize);
                 if (albumSelectedDS == null)
                 {
                     return false;
                 }
 
                 SelectAlbumDataSet.SelectAlbumTableRow selectedAlbumRow = (SelectAlbumDataSet.SelectAlbumTableRow)albumSelectedDS.SelectAlbumTable.Rows[0];
-                SaveSessionInformation(sessionXml, selectedAlbumRow.AuthenticationToken, selectedAlbumRow.SelectedAlbumEntry.Title.Text);
-                SavePersistInformation(persistXml, selectedAlbumRow.RememberUsername, selectedAlbumRow.Username, selectedAlbumRow.LastCheckForUpdate, selectedAlbumRow.LastUpdateValue);
+                SaveSessionInformation(sessionXml, selectedAlbumRow.AuthenticationToken, selectedAlbumRow.SelectedAlbumEntry.Title.Text, selectedAlbumRow.PhotoSize);
+                SavePersistInformation(persistXml, selectedAlbumRow.RememberUsername, selectedAlbumRow.Username, selectedAlbumRow.LastCheckForUpdate, selectedAlbumRow.LastUpdateValue, selectedAlbumRow.PhotoSize);
 
                 return true;
 			}
@@ -138,19 +140,22 @@ namespace PicasaUpload
 		#endregion
 
 
+
+
 		/// <summary>
 		/// Loads the persist information:
 		/// </summary>
 		/// <param name="persistXml"></param>
 		/// <param name="rememberUserEmail"></param>
 		/// <param name="userEmail"></param>
-		private void LoadPersistInformation(XmlDocument persistXml, out bool rememberUserEmail, out string userEmail, out DateTime lastUpdateCheck, out bool lastUpdateValue)
+		private void LoadPersistInformation(XmlDocument persistXml, out bool rememberUserEmail, out string userEmail, out DateTime lastUpdateCheck, out bool lastUpdateValue, out int photoSize)
 		{
 			//initialize our out variables
 			rememberUserEmail = false;
 			userEmail = string.Empty;
             lastUpdateCheck = DateTime.MinValue;
             lastUpdateValue = false;
+            photoSize = 0;
 
 			//Get our xml node, and return if it does not exist:
 			XmlNode persistXmlNode = persistXml[PERSIST_NODE_NAME];
@@ -175,6 +180,12 @@ namespace PicasaUpload
 				lastUpdateValue = bool.Parse(lastUpdateValueElement.InnerText);
 			}
 
+            XmlElement photoSizeElement = persistXml[PHOTO_SIZE_NODE_NAME];
+            if (photoSizeElement != null)
+            {
+                photoSize = int.Parse(photoSizeElement.InnerText);
+            }
+
 		}
 
 		/// <summary>
@@ -183,14 +194,15 @@ namespace PicasaUpload
 		/// <param name="persistXml"></param>
 		/// <param name="rememberUserEmail"></param>
 		/// <param name="userEmail"></param>
-        private void SavePersistInformation(XmlDocument persistXml, bool rememberUserEmail, string userEmail, DateTime lastUpdateCheck, bool lastUpdateValue)
+        private void SavePersistInformation(XmlDocument persistXml, bool rememberUserEmail, string userEmail, DateTime lastUpdateCheck, bool lastUpdateValue, int photoSize)
 		{
 			//Get our persist node format (If we start saving more then this, then we might have to start manipulating the XmlDocument directly:
 			string persistNodeXml = string.Format(PERSIST_XML_FORMAT, 
                                                     rememberUserEmail.ToString(), 
                                                     rememberUserEmail ? userEmail : string.Empty,
                                                     lastUpdateCheck.ToString(DATE_FORMAT, System.Globalization.CultureInfo.InvariantCulture), 
-                                                    lastUpdateValue.ToString()
+                                                    lastUpdateValue.ToString(),
+                                                    photoSize
                                                  );
 			XmlDocument newPersistDoc = new XmlDocument();
 			newPersistDoc.LoadXml(persistNodeXml);
@@ -216,8 +228,15 @@ namespace PicasaUpload
 		/// <param name="sessionXml"></param>
 		/// <param name="token"></param>
 		/// <param name="selectedAlbumId"></param>
-		private static void SaveSessionInformation(System.Xml.XmlDocument sessionXml, string authToken, string selectedAlbumId)
+		private static void SaveSessionInformation(System.Xml.XmlDocument sessionXml, string authToken, string selectedAlbumId, int photoSize)
 		{
+
+            //update maxWidth, maxHeight:
+            XmlNode publishParameters = sessionXml["PublishParameters"];
+            publishParameters["MaxWidth"].InnerText = photoSize.ToString();
+            publishParameters["MaxHeight"].InnerText = photoSize.ToString();
+
+
 			XmlElement settings = sessionXml[GOOGLE_SETTINGS_NODE_NAME];
 			XmlElement authKey = null;
 			XmlElement albumId = null;

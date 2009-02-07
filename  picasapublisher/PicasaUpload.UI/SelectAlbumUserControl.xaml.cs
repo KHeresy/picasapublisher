@@ -17,10 +17,15 @@ namespace PicasaUpload.UI
 		private Picasa _picasaApi;
 		public PicasaFeed Albums { get { return _albumSelectedUC.Albums; } set { _albumSelectedUC.Albums = value; } }
 
-		public SelectAlbumUserControl(Picasa picasaApi)
+        private int _photoSize;
+        public int PhotoSize { get { return _photoSize; } set { _photoSize = value; } }
+
+		public SelectAlbumUserControl(Picasa picasaApi, int photoSize)
 		{
 			this.InitializeComponent();
 			_picasaApi = picasaApi;
+
+            _photoSize = photoSize;
 			
 			// Insert code required on object creation below this point.
 		}
@@ -28,7 +33,35 @@ namespace PicasaUpload.UI
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
 			Albums = _picasaApi.GetAlbums();
+
+            //load photosize:
+            LoadPhotoSizeCombo();
 		}
+
+        private void LoadPhotoSizeCombo()
+        {
+            int selectedIndex = 0;
+
+            if (_photoSize == 2048)
+            {
+                selectedIndex = 1;
+            }
+            else if (_photoSize == 1600)
+            {
+                selectedIndex = 2;
+            }
+            else if (_photoSize == 800)
+            {
+                selectedIndex = 3;
+            }
+
+            _cboPhotoSize.SelectedIndex = selectedIndex;
+        }
+        private void SavePhotoSizeCombo()
+        {
+            _photoSize = int.Parse((string)((ComboBoxItem)_cboPhotoSize.SelectedItem).Tag);
+        }
+
 
 		#region Dialog Management
 		private bool _okClicked = false;
@@ -60,8 +93,12 @@ namespace PicasaUpload.UI
 				return;
 			}
 
+            //set photoSize based on cbo:
+            SavePhotoSizeCombo();
+
 			CloseWindow(this, EventArgs.Empty);
 		}
+
 
         //is the UI ok:
         private bool ValidateUI()

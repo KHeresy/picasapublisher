@@ -276,6 +276,8 @@ namespace PicasaUpload.UI {
             
             private global::System.Data.DataColumn columnSelectedAlbumEntry;
             
+            private global::System.Data.DataColumn columnPhotoSize;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public SelectAlbumTableDataTable() {
                 this.TableName = "SelectAlbumTable";
@@ -356,6 +358,13 @@ namespace PicasaUpload.UI {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn PhotoSizeColumn {
+                get {
+                    return this.columnPhotoSize;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -384,7 +393,7 @@ namespace PicasaUpload.UI {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public SelectAlbumTableRow AddSelectAlbumTableRow(bool RememberUsername, string Username, string AuthenticationToken, string SelectedAlbumId, System.DateTime LastCheckForUpdate, bool LastUpdateValue, Google.GData.Photos.PicasaEntry SelectedAlbumEntry) {
+            public SelectAlbumTableRow AddSelectAlbumTableRow(bool RememberUsername, string Username, string AuthenticationToken, string SelectedAlbumId, System.DateTime LastCheckForUpdate, bool LastUpdateValue, Google.GData.Photos.PicasaEntry SelectedAlbumEntry, int PhotoSize) {
                 SelectAlbumTableRow rowSelectAlbumTableRow = ((SelectAlbumTableRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         RememberUsername,
@@ -393,7 +402,8 @@ namespace PicasaUpload.UI {
                         SelectedAlbumId,
                         LastCheckForUpdate,
                         LastUpdateValue,
-                        SelectedAlbumEntry};
+                        SelectedAlbumEntry,
+                        PhotoSize};
                 rowSelectAlbumTableRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowSelectAlbumTableRow);
                 return rowSelectAlbumTableRow;
@@ -420,6 +430,7 @@ namespace PicasaUpload.UI {
                 this.columnLastCheckForUpdate = base.Columns["LastCheckForUpdate"];
                 this.columnLastUpdateValue = base.Columns["LastUpdateValue"];
                 this.columnSelectedAlbumEntry = base.Columns["SelectedAlbumEntry"];
+                this.columnPhotoSize = base.Columns["PhotoSize"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -438,6 +449,10 @@ namespace PicasaUpload.UI {
                 base.Columns.Add(this.columnLastUpdateValue);
                 this.columnSelectedAlbumEntry = new global::System.Data.DataColumn("SelectedAlbumEntry", typeof(global::Google.GData.Photos.PicasaEntry), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnSelectedAlbumEntry);
+                this.columnPhotoSize = new global::System.Data.DataColumn("PhotoSize", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPhotoSize);
+                this.columnPhotoSize.AllowDBNull = false;
+                this.columnPhotoSize.DefaultValue = ((int)(0));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -672,6 +687,16 @@ namespace PicasaUpload.UI {
                 }
                 set {
                     this[this.tableSelectAlbumTable.SelectedAlbumEntryColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int PhotoSize {
+                get {
+                    return ((int)(this[this.tableSelectAlbumTable.PhotoSizeColumn]));
+                }
+                set {
+                    this[this.tableSelectAlbumTable.PhotoSizeColumn] = value;
                 }
             }
             

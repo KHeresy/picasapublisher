@@ -25,7 +25,7 @@ namespace PicasaUpload.UI
         /// This function will display all windows necessary for the user to select an album
         /// </summary>
         /// <returns>The ID of the photo album</returns>
-        public static SelectAlbumDataSet SelectAlbumUI(bool rememberUserEmail, string userEmail, DateTime lastUpdateCheck, bool updateAtLastCheck)
+        public static SelectAlbumDataSet SelectAlbumUI(bool rememberUserEmail, string userEmail, DateTime lastUpdateCheck, bool updateAtLastCheck, int photoSize)
         {
             Picasa picasa = new Picasa(APP_NAME);
 
@@ -52,6 +52,7 @@ namespace PicasaUpload.UI
             PicasaEntry selectedAlbumEntry = null;
 			SelectAlbumForm selectAlbum = new SelectAlbumForm();
 			selectAlbum.PicasaPublisherApi = picasa;
+            selectAlbum.PhotoSize = photoSize;
 			if (selectAlbum.ShowDialog() != System.Windows.Forms.DialogResult.OK)
 			{
 				return null;
@@ -67,7 +68,7 @@ namespace PicasaUpload.UI
 			}
 
             //Gather up what needs to be returned to the user:
-            return BuildSelectAlbumUIDatatable(rememberUsername, username, picasa.AuthenticationToken, selectedAlbumEntry, lastUpdateCheck, updateAtLastCheck);
+            return BuildSelectAlbumUIDatatable(rememberUsername, username, picasa.AuthenticationToken, selectedAlbumEntry, lastUpdateCheck, updateAtLastCheck, selectAlbum.PhotoSize);
         }
 
 
@@ -106,7 +107,7 @@ namespace PicasaUpload.UI
 			return true;
 		}
 
-        private static SelectAlbumDataSet BuildSelectAlbumUIDatatable(bool rememberUsername, string username, string authenticationToken, PicasaEntry selectedAlbumEntry, DateTime lastUpdateCheck, bool updateAtLastCheck)
+        private static SelectAlbumDataSet BuildSelectAlbumUIDatatable(bool rememberUsername, string username, string authenticationToken, PicasaEntry selectedAlbumEntry, DateTime lastUpdateCheck, bool updateAtLastCheck, int photoSize)
         {
             //this should be a strongly typed dataset:
             SelectAlbumDataSet ret = new SelectAlbumDataSet();
@@ -117,6 +118,7 @@ namespace PicasaUpload.UI
 			row.LastCheckForUpdate = lastUpdateCheck;
 			row.LastUpdateValue = updateAtLastCheck;
             row.SelectedAlbumEntry = selectedAlbumEntry;
+            row.PhotoSize = photoSize;
 
             ret.SelectAlbumTable.Rows.Add(row);
 
