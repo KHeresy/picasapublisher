@@ -179,5 +179,6 @@ namespace PicasaUpload
 			//Reset our cursor:
 			this.Cursor = Cursors.Default;
 		}
+
 	}
 }
