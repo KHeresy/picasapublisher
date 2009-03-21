@@ -26,7 +26,7 @@ namespace PicasaUpload.GoogleApi
         /// <returns>Returns the AuthenticationToken.</returns>
         public string Login(string username, string password)
         {
-            _picasaService.setUserCredentials(username, password);
+            _picasaService.setUserCredentials(username, password);            
 
             return _picasaService.QueryAuthenticationToken();
         }
