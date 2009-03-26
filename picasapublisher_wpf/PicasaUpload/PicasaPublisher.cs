@@ -119,7 +119,8 @@ namespace PicasaUpload
                 }
 
                 SelectAlbumDataSet.SelectAlbumTableRow selectedAlbumRow = (SelectAlbumDataSet.SelectAlbumTableRow)albumSelectedDS.SelectAlbumTable.Rows[0];
-                SaveSessionInformation(sessionXml, selectedAlbumRow.AuthenticationToken, selectedAlbumRow.SelectedAlbumEntry.Title.Text, selectedAlbumRow.PhotoSize);
+                string albumId = selectedAlbumRow.SelectedAlbumEntry.Id.AbsoluteUri.Substring(selectedAlbumRow.SelectedAlbumEntry.Id.AbsoluteUri.LastIndexOf('/') + 1);
+                SaveSessionInformation(sessionXml, selectedAlbumRow.AuthenticationToken, albumId, selectedAlbumRow.PhotoSize);
                 SavePersistInformation(persistXml, selectedAlbumRow.RememberUsername, selectedAlbumRow.Username, selectedAlbumRow.LastCheckForUpdate, selectedAlbumRow.LastUpdateValue, selectedAlbumRow.PhotoSize);
 
                 return true;
@@ -231,13 +232,15 @@ namespace PicasaUpload
 		private static void SaveSessionInformation(System.Xml.XmlDocument sessionXml, string authToken, string selectedAlbumId, int photoSize)
 		{
 
+            XmlNode photoGalleryPublishSession = sessionXml["PhotoGalleryPublishSession"];
+
             //update maxWidth, maxHeight:
-            XmlNode publishParameters = sessionXml["PublishParameters"];
+            XmlNode publishParameters = photoGalleryPublishSession["PublishParameters"];
             publishParameters["MaxWidth"].InnerText = photoSize.ToString();
             publishParameters["MaxHeight"].InnerText = photoSize.ToString();
 
 
-			XmlElement settings = sessionXml[GOOGLE_SETTINGS_NODE_NAME];
+            XmlElement settings = photoGalleryPublishSession[GOOGLE_SETTINGS_NODE_NAME];
 			XmlElement authKey = null;
 			XmlElement albumId = null;
 			if (settings == null)
@@ -245,7 +248,7 @@ namespace PicasaUpload
 				settings = sessionXml.CreateElement(GOOGLE_SETTINGS_NODE_NAME);
 				authKey = sessionXml.CreateElement(AUTH_KEY_NODE_NAME);
 				albumId = sessionXml.CreateElement(SELECTED_ALBUM_NODE_NAME);
-				sessionXml.DocumentElement.AppendChild(settings);
+                photoGalleryPublishSession.AppendChild(settings);
 				settings.AppendChild(authKey);
 				settings.AppendChild(albumId);
 			}

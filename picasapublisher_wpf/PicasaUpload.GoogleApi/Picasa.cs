@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Google.GData.Photos;
+using Google.GData.Client;
 using System.IO;
 
 
@@ -77,7 +78,7 @@ namespace PicasaUpload.GoogleApi
         /// <returns></returns>
         public PicasaEntry PostPhoto(PicasaEntry albumEntry, Stream photoStream, string filename)
         {
-            return PostPhoto(albumEntry.Title.Text, photoStream, filename);
+            return PostPhoto(albumEntry.Id.AbsoluteUri.Substring(albumEntry.Id.AbsoluteUri.LastIndexOf('/') + 1), photoStream, filename);
         }
 
         /// <summary>
@@ -87,10 +88,10 @@ namespace PicasaUpload.GoogleApi
         /// <param name="photoStream"></param>
         /// <param name="filename"></param>
         /// <returns></returns>
-        public PicasaEntry PostPhoto(string albumName, Stream photoStream, string filename)
+        public PicasaEntry PostPhoto(string albumId, Stream photoStream, string filename)
         {
             //it is album name, not ID
-            Uri postUri = new Uri(PicasaQuery.CreatePicasaUri(DEFAULT_USER_ID, albumName));
+            Uri postUri = new Uri(PicasaQuery.CreatePicasaUri(DEFAULT_USER_ID, albumId));
 
             PicasaEntry entry = (PicasaEntry)_picasaService.Insert(postUri, photoStream, "image/jpeg", filename);
 
@@ -113,6 +114,12 @@ namespace PicasaUpload.GoogleApi
         /// <param name="authenticationToken"></param>
         public Picasa(string appName, string authenticationToken)
         {
+
+            //GAuthSubRequestFactory subReqFactory = new GAuthSubRequestFactory(PicasaService.GPicasaService, appName);
+            //subReqFactory.Token = authenticationToken;
+            //_picasaService = new PicasaService(subReqFactory.ApplicationName);
+            //_picasaService.RequestFactory = subReqFactory;
+
             _picasaService = new PicasaService(appName);
             _picasaService.SetAuthenticationToken(authenticationToken);
         }
