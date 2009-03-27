@@ -9,11 +9,13 @@ using System.Windows.Media.Animation;
 using System.Windows.Navigation;
 using Google.GData.Photos;
 using PicasaUpload.GoogleApi;
+using System.Threading;
 
 namespace PicasaUpload.UI
 {
 	public partial class SelectAlbumUserControl
 	{
+        
 		private Picasa _picasaApi;
 		public PicasaFeed Albums { get { return _albumSelectedUC.Albums; } set { _albumSelectedUC.Albums = value; } }
 
@@ -30,13 +32,44 @@ namespace PicasaUpload.UI
 			// Insert code required on object creation below this point.
 		}
 
+        
+
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
-			Albums = _picasaApi.GetAlbums();
+            _lblLoading.Visibility = Visibility.Visible;
+            _pbLoading.Visibility = Visibility.Visible;
+
+            ThreadStart threadDelegate = new ThreadStart(LoadAlbums);
+            Thread newThread = new Thread(threadDelegate);
+            newThread.Start();
+
 
             //load photosize:
             LoadPhotoSizeCombo();
 		}
+
+        private void LoadAlbums()
+        {
+            LoadAlbumsCompleted(_picasaApi.GetAlbums());
+        }
+
+        private delegate void LoadAlbumsCompletedDelegate(PicasaFeed albums);
+        private void LoadAlbumsCompleted(PicasaFeed albums)
+        {
+            //are we good to change stuff
+            if (this.Dispatcher.Thread == Thread.CurrentThread)
+            {
+                Albums = albums;
+                _lblLoading.Visibility = Visibility.Hidden;
+                _pbLoading.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                //no, so call invoke:
+                this.Dispatcher.Invoke((LoadAlbumsCompletedDelegate)LoadAlbumsCompleted, albums);
+            }
+            
+        }
 
         private void LoadPhotoSizeCombo()
         {

@@ -29,6 +29,7 @@
 		private void InitializeComponent()
 		{
             this._wpfHost = new System.Windows.Forms.Integration.ElementHost();
+            this._loadPhotoAlbumsBackground = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
             // _wpfHost
@@ -60,5 +61,6 @@
 		#endregion
 
 		private System.Windows.Forms.Integration.ElementHost _wpfHost;
+        private System.ComponentModel.BackgroundWorker _loadPhotoAlbumsBackground;
 	}
 }

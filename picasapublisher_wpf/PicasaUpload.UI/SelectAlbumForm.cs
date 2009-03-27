@@ -29,11 +29,17 @@ namespace PicasaUpload.UI
 		SelectAlbumUserControl _selectAlbumUserControl;
 		private void SelectAlbumForm_Load(object sender, EventArgs e)
 		{
+            //_loadPhotoAlbumsBackground.DoWork += new DoWorkEventHandler(_loadPhotoAlbumsBackground_DoWork);
+            //_loadPhotoAlbumsBackground.RunWorkerCompleted += new RunWorkerCompletedEventHandler(_loadPhotoAlbumsBackground_RunWorkerCompleted);
+            //_loadPhotoAlbumsBackground.RunWorkerAsync(new Object[] {_picasaPublisherApi, _photoS
+
 			_selectAlbumUserControl = new SelectAlbumUserControl(_picasaPublisherApi, _photoSize);
 			_selectAlbumUserControl.CloseWindow += new SelectAlbumUserControl.CloseWindowHandler(_selectAlbumUserControl_CloseWindow);
 
 			_wpfHost.Child = _selectAlbumUserControl;
 		}
+
+
 
 		void _selectAlbumUserControl_CloseWindow(object sender, EventArgs e)
 		{
@@ -48,5 +54,20 @@ namespace PicasaUpload.UI
         public string AlbumRights { get { return _selectAlbumUserControl.AlbumRights; } }
         private int _photoSize;
         public int PhotoSize { get { return _photoSize; } set { _photoSize = value; } }
-	}
+
+
+        #region Thread to load data
+        void _loadPhotoAlbumsBackground_DoWork(object sender, DoWorkEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+        void _loadPhotoAlbumsBackground_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+
+
+        #endregion
+    }
 }

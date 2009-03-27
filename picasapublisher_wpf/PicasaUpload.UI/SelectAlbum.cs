@@ -46,11 +46,6 @@ namespace PicasaUpload.UI
 			bool rememberUsername = login.RememberUsername;
 			lastUpdateCheck = login.LastCheckForUpdate;
 			updateAtLastCheck = login.UpdateAtLastCheck;
-
-            string authenticationToken = picasa.AuthenticationToken;
-            picasa = null;
-
-            picasa = new Picasa(APP_NAME, authenticationToken);
                         
             //Display UI for selecting album:
             PicasaEntry selectedAlbumEntry = null;
@@ -72,7 +67,7 @@ namespace PicasaUpload.UI
 			}
 
             //Gather up what needs to be returned to the user:
-            return BuildSelectAlbumUIDatatable(rememberUsername, username, authenticationToken, selectedAlbumEntry, lastUpdateCheck, updateAtLastCheck, selectAlbum.PhotoSize);
+            return BuildSelectAlbumUIDatatable(rememberUsername, username, picasa.AuthenticationToken, selectedAlbumEntry, lastUpdateCheck, updateAtLastCheck, selectAlbum.PhotoSize);
         }
 
 

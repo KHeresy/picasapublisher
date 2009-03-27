@@ -21,5 +21,7 @@
             <ComboBoxItem Name="Large" Tag="1600">1600</ComboBoxItem>
             <ComboBoxItem Name="Med" Tag="800">800</ComboBoxItem>
         </ComboBox>
+        <ProgressBar Height="24" HorizontalAlignment="Right" Margin="0,14,12,0" Name="_pbLoading" VerticalAlignment="Top" Width="264" IsIndeterminate="True" />
+        <Label Height="28" Margin="342,15,278,0" Name="_lblLoading" VerticalAlignment="Top" HorizontalContentAlignment="Right">Loading Albums:</Label>
     </Grid>
 </UserControl>
