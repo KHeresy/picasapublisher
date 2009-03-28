@@ -102,35 +102,15 @@ namespace PicasaUpload.UI
 
 		private void _cmdOK_Click(object sender, RoutedEventArgs e)
 		{
-			_okClicked = true;
-			OnCloseWindow();
+            SavePhotoSizeCombo();
+            DialogResult = true;
 		}
 
 		private void _cmdCancel_Click(object sender, RoutedEventArgs e)
 		{
-			OnCloseWindow();
-		}
+            DialogResult = false;
+        }
 
-		public delegate void CloseWindowHandler(object sender, EventArgs e);
-		public event CloseWindowHandler CloseWindow;
-		protected void OnCloseWindow()
-		{
-            //validate:
-            if (ValidateUI() == false)
-            {
-                return;
-            }
-
-			if( CloseWindow == null )
-			{
-				return;
-			}
-
-            //set photoSize based on cbo:
-            SavePhotoSizeCombo();
-
-			CloseWindow(this, EventArgs.Empty);
-		}
 
 
         //is the UI ok:

@@ -20,7 +20,7 @@ namespace PicasaUpload.UI
     /// <summary>
     /// Interaction logic for Window1.xaml
     /// </summary>
-    public partial class LoginWindow : UserControl
+    public partial class LoginWindow : Window
     {
 		private Picasa _picasaApi;
 		private bool _loginClicked = false;
@@ -32,8 +32,6 @@ namespace PicasaUpload.UI
 		public DateTime LastCheckForUpdate { get { return _lastCheckForUpdate; } set { _lastCheckForUpdate = value; } }
 		private bool _updateAtLastCheck = true;
 		public bool UpdateAtLastCheck { get { return _updateAtLastCheck; } set { _updateAtLastCheck = value; } }
-		private string _authenticationToken;
-		public string AuthenticationToken { get { return _authenticationToken; } set { _authenticationToken = value; } }
 
         public LoginWindow(Picasa picasaApi)
         {
@@ -57,27 +55,23 @@ namespace PicasaUpload.UI
 
 		private void _cmdLogin_Click(object sender, RoutedEventArgs e)
 		{
-			try
-			{
-				this.Cursor = Cursors.Wait;
-				_authenticationToken = _picasaApi.Login(Username, Password);
-				this.Cursor = Cursors.Arrow;
-			}
-			catch (Exception x)
-			{
-				MessageBox.Show(x.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-				return;
-			}
-			_loginClicked = true;
+            try
+            {
+                this.Cursor = Cursors.Wait;
+                _picasaApi.Login(Username, Password);
+                this.Cursor = Cursors.Arrow;
+            }
+            catch (Exception x)
+            {
+                MessageBox.Show(x.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
 
-            //Fire the Close me event:
-            OnCloseLogin();
-		}
+            DialogResult = true;
+        }
 
         private void _cmdCancel_Click(object sender, RoutedEventArgs e)
         {
-            _loginClicked = false;
-            OnCloseLogin();
         }
 
 		private void _cmdFeedback_Click(object sender, RoutedEventArgs e)
@@ -96,20 +90,9 @@ namespace PicasaUpload.UI
 		}
 
 
-        #region Our Events
-        public delegate void CloseLogin(object sender, EventArgs e);
-        public event CloseLogin CloseLoginEvent;
-        private void OnCloseLogin()
-        {
-            if (CloseLoginEvent != null)
-            {
-                CloseLoginEvent(this, EventArgs.Empty);
-            }
-        }
-        #endregion
-
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+            
             if (string.IsNullOrEmpty(_txtUsername.Text))
             {
                 _txtUsername.Focus();

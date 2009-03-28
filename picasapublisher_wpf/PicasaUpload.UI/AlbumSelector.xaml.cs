@@ -96,7 +96,7 @@ namespace PicasaUpload.UI
         { 
 			get 
 			{
-				if (_selectedAlbumControl.AlbumEntry == null)
+				if (_selectedAlbumControl == null || _selectedAlbumControl.AlbumEntry == null)
 				{
 					return string.Empty;
 				}

@@ -31,17 +31,19 @@ namespace PicasaUpload.UI
 
             Cursor.Current = Cursors.WaitCursor;
 
-			LoginForm login = new LoginForm();
-            login.PicasaPublisherApi = picasa;
+			//LoginForm login = new LoginForm();
+            LoginWindow login = new LoginWindow(picasa);
+            //login.PicasaPublisherApi = picasa;
 			login.RememberUsername = rememberUserEmail;
 			login.Username = userEmail;
 			login.LastCheckForUpdate = lastUpdateCheck;
 			login.UpdateAtLastCheck = updateAtLastCheck;
-            if (login.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+            if (login.ShowDialog() == false)
             {
                 return null;
             }
 
+            
 			string username = login.Username;
 			bool rememberUsername = login.RememberUsername;
 			lastUpdateCheck = login.LastCheckForUpdate;
@@ -49,10 +51,8 @@ namespace PicasaUpload.UI
                         
             //Display UI for selecting album:
             PicasaEntry selectedAlbumEntry = null;
-			SelectAlbumForm selectAlbum = new SelectAlbumForm();
-			selectAlbum.PicasaPublisherApi = picasa;
-            selectAlbum.PhotoSize = photoSize;
-			if (selectAlbum.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+            SelectAlbumUserControl selectAlbum = new SelectAlbumUserControl(picasa, photoSize);
+			if (selectAlbum.ShowDialog() == false)
 			{
 				return null;
 			}
