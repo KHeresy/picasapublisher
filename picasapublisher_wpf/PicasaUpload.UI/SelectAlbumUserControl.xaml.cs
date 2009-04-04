@@ -43,7 +43,6 @@ namespace PicasaUpload.UI
             Thread newThread = new Thread(threadDelegate);
             newThread.Start();
 
-
             //load photosize:
             LoadPhotoSizeCombo();
 		}
@@ -66,9 +65,8 @@ namespace PicasaUpload.UI
             else
             {
                 //no, so call invoke:
-                this.Dispatcher.Invoke((LoadAlbumsCompletedDelegate)LoadAlbumsCompleted, albums);
-            }
-            
+                this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal, (LoadAlbumsCompletedDelegate)LoadAlbumsCompleted, albums);
+            }            
         }
 
         private void LoadPhotoSizeCombo()
