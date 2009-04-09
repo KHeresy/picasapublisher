@@ -1,5 +1,0 @@
-F:\Documents\SourceCode\PicasaUpload\GoogleApi\obj\Debug\ResolveAssemblyReference.cache
-F:\Documents\SourceCode\PicasaUpload\GoogleApi\bin\Debug\GoogleApi.dll
-F:\Documents\SourceCode\PicasaUpload\GoogleApi\bin\Debug\GoogleApi.pdb
-F:\Documents\SourceCode\PicasaUpload\GoogleApi\obj\Debug\GoogleApi.dll
-F:\Documents\SourceCode\PicasaUpload\GoogleApi\obj\Debug\GoogleApi.pdb
