@@ -70,7 +70,7 @@ namespace PicasaUpload.UI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to current_version.txt.
+        ///   Looks up a localized string similar to check_update/.
         /// </summary>
         internal static string CURRENT_VERSION_URL {
             get {

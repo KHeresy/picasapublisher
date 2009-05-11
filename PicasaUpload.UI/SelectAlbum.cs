@@ -90,7 +90,9 @@ namespace PicasaUpload.UI
 			string latestVersionString = string.Empty;
 			try
 			{
-				HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(Properties.Resources.BASE_URL + Properties.Resources.CURRENT_VERSION_URL);
+				HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(Properties.Resources.BASE_URL + 
+                                                                        Properties.Resources.CURRENT_VERSION_URL +
+                                                                        currentVersionString);
 				webRequest.CachePolicy = new System.Net.Cache.RequestCachePolicy(System.Net.Cache.RequestCacheLevel.Reload);
 				HttpWebResponse response = (HttpWebResponse)webRequest.GetResponse();
 				StreamReader sr = new StreamReader(response.GetResponseStream());

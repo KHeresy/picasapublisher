@@ -49,7 +49,14 @@ namespace PicasaUpload.UI
 
         private void LoadAlbums()
         {
-            LoadAlbumsCompleted(_picasaApi.GetAlbums());
+            try
+            {
+                LoadAlbumsCompleted(_picasaApi.GetAlbums());
+            }
+            catch (Exception ex)
+            {
+                LoadAlbumsErrored(ex);
+            }
         }
 
         private delegate void LoadAlbumsCompletedDelegate(PicasaFeed albums);
@@ -67,6 +74,28 @@ namespace PicasaUpload.UI
                 //no, so call invoke:
                 this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal, (LoadAlbumsCompletedDelegate)LoadAlbumsCompleted, albums);
             }            
+        }
+
+        private delegate void LoadAlbumsErroredDelegate(Exception ex);
+        private void LoadAlbumsErrored(Exception ex)
+        {
+            try
+            {
+                //are we good to change stuff
+                if (this.Dispatcher.Thread == Thread.CurrentThread)
+                {
+                    MessageBox.Show(string.Format("Error: {0}", ex.Message), "Error", MessageBoxButton.OK);
+                }
+                else
+                {
+                    //no, so call invoke:
+                    this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal, (LoadAlbumsErroredDelegate)LoadAlbumsErrored, ex);
+                }
+            }
+            catch (Exception x)
+            {
+                MessageBox.Show(string.Format("Error: {0}", x.Message), "Error", MessageBoxButton.OK);
+            }
         }
 
         private void LoadPhotoSizeCombo()

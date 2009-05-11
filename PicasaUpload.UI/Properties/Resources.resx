@@ -121,7 +121,7 @@
     <value>http://www.mlsteeves.com/picasapublisher/</value>
   </data>
   <data name="CURRENT_VERSION_URL" xml:space="preserve">
-    <value>current_version.txt</value>
+    <value>check_update/</value>
   </data>
   <data name="DONATE_URL" xml:space="preserve">
     <value>donate.html</value>
