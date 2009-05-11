@@ -7,6 +7,8 @@ using System.Xml;
 using PicasaUpload.UI;
 using PicasaUpload.GoogleApi;
 using Google.GData.Photos;
+using System.Diagnostics;
+
 
 namespace PicasaUpload
 {
@@ -22,6 +24,7 @@ namespace PicasaUpload
         private const string LAST_UPDATE_CHECK_NODE_NAME = "lastUpdateCheck";
         private const string LAST_UPDATE_VALUE_NODE_NAME = "lastUpdateValue";
         private const string PHOTO_SIZE_NODE_NAME = "photoSize";
+        private const string RESULT_URL_NODE_NAME = "resultUrl";
 		private const string PERSIST_XML_FORMAT = "<PicasaPublisherPersistInfo><rememberUserEmail>{0}</rememberUserEmail><userEmail>{1}</userEmail><lastUpdateCheck>{2}</lastUpdateCheck><lastUpdateValue>{3}</lastUpdateValue><photoSize>{4:d}</photoSize></PicasaPublisherPersistInfo>";
 		private const string GOOGLE_SETTINGS_NODE_NAME = "GoogleSettings";
 		private const string AUTH_KEY_NODE_NAME = "AuthKey";
@@ -39,7 +42,7 @@ namespace PicasaUpload
 
 		public bool HasPublishResults(System.Xml.XmlDocument sessionXml)
 		{
-			return false;
+			return true;
 		}
 
 		public bool HasSummaryInformation(System.Xml.XmlDocument sessionXml)
@@ -49,7 +52,11 @@ namespace PicasaUpload
 
 		public void LaunchPublishResults(System.Xml.XmlDocument sessionXml)
 		{
-			throw new NotImplementedException();
+            XmlElement googleSettings = sessionXml.DocumentElement[GOOGLE_SETTINGS_NODE_NAME];
+            string resultUrl = googleSettings[RESULT_URL_NODE_NAME].InnerText;
+
+            Process.Start(resultUrl);
+
 		}
 
 		/// <summary>
@@ -74,14 +81,21 @@ namespace PicasaUpload
 			XmlElement googleSettings = sessionXml.DocumentElement[GOOGLE_SETTINGS_NODE_NAME];
 			string googleAuthKey = googleSettings[AUTH_KEY_NODE_NAME].InnerText;
 			string albumName = googleSettings[SELECTED_ALBUM_NODE_NAME].InnerText;
-
-			//Actually post the photo:
-			//return GoogleApi.PicasaWebAlbums.PicasaWebAlbumsRequest.PostPhotoWithoutMetadata(albumName, stream, filename, new GoogleApi.GoogleAuthorizationToken(googleAuthKey));
+            XmlElement albumUrlNode = googleSettings[RESULT_URL_NODE_NAME];
 
             try
             {
                 GoogleApi.Picasa picasa = new Picasa(SelectAlbum.APP_NAME, googleAuthKey);
                 PicasaEntry newPic = picasa.PostPhoto(albumName, stream, filename);
+
+                //album feed is:
+                if (string.IsNullOrEmpty(albumUrlNode.InnerText))
+                {
+                    string albumUrl = newPic.AlternateUri.ToString();
+                    albumUrl = albumUrl.Substring(0, albumUrl.LastIndexOf('#')+1);
+                    albumUrlNode.InnerText = albumUrl;
+                }
+
 
                 UpdatePhotoWithSession(sessionXml, newPic);
             }
@@ -124,6 +138,7 @@ namespace PicasaUpload
 
                 SelectAlbumDataSet.SelectAlbumTableRow selectedAlbumRow = (SelectAlbumDataSet.SelectAlbumTableRow)albumSelectedDS.SelectAlbumTable.Rows[0];
                 string albumId = string.Empty;
+                string resultUri = string.Empty;
                 if (selectedAlbumRow.UseDefaultAlbum)
                 {
                     albumId = "default";
@@ -131,8 +146,9 @@ namespace PicasaUpload
                 else
                 {
                     albumId = selectedAlbumRow.SelectedAlbumEntry.Id.AbsoluteUri.Substring(selectedAlbumRow.SelectedAlbumEntry.Id.AbsoluteUri.LastIndexOf('/') + 1);
+                    resultUri = selectedAlbumRow.SelectedAlbumEntry.AlternateUri.ToString();
                 }
-                SaveSessionInformation(sessionXml, selectedAlbumRow.AuthenticationToken, albumId, selectedAlbumRow.PhotoSize);
+                SaveSessionInformation(sessionXml, selectedAlbumRow.AuthenticationToken, albumId, selectedAlbumRow.PhotoSize, resultUri);
                 SavePersistInformation(persistXml, selectedAlbumRow.RememberUsername, selectedAlbumRow.Username, selectedAlbumRow.LastCheckForUpdate, selectedAlbumRow.LastUpdateValue, selectedAlbumRow.PhotoSize);
 
                 return true;
@@ -241,7 +257,11 @@ namespace PicasaUpload
 		/// <param name="sessionXml"></param>
 		/// <param name="token"></param>
 		/// <param name="selectedAlbumId"></param>
-		private static void SaveSessionInformation(System.Xml.XmlDocument sessionXml, string authToken, string selectedAlbumId, int photoSize)
+		private static void SaveSessionInformation(System.Xml.XmlDocument sessionXml, 
+                                                    string authToken, 
+                                                    string selectedAlbumId, 
+                                                    int photoSize,
+                                                    string resultUrlText)
 		{
 
             XmlNode photoGalleryPublishSession = sessionXml["PhotoGalleryPublishSession"];
@@ -255,23 +275,28 @@ namespace PicasaUpload
             XmlElement settings = photoGalleryPublishSession[GOOGLE_SETTINGS_NODE_NAME];
 			XmlElement authKey = null;
 			XmlElement albumId = null;
+            XmlElement resultUrl = null;
 			if (settings == null)
 			{
 				settings = sessionXml.CreateElement(GOOGLE_SETTINGS_NODE_NAME);
 				authKey = sessionXml.CreateElement(AUTH_KEY_NODE_NAME);
 				albumId = sessionXml.CreateElement(SELECTED_ALBUM_NODE_NAME);
+                resultUrl = sessionXml.CreateElement(RESULT_URL_NODE_NAME);
                 photoGalleryPublishSession.AppendChild(settings);
 				settings.AppendChild(authKey);
 				settings.AppendChild(albumId);
+                settings.AppendChild(resultUrl);
 			}
 			else
 			{
 				authKey = settings[AUTH_KEY_NODE_NAME];
 				albumId = settings[SELECTED_ALBUM_NODE_NAME];
+                resultUrl = settings[RESULT_URL_NODE_NAME];
 			}
 
 			authKey.InnerText = authToken;
 			albumId.InnerText = selectedAlbumId;
+            resultUrl.InnerText = resultUrlText;
 		}
         /// <summary>
         /// This function will take a new picasaEntry, and update any applicable fields from the sessionXml:
