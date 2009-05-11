@@ -168,9 +168,6 @@ namespace PicasaUpload
 
 		#endregion
 
-
-
-
 		/// <summary>
 		/// Loads the persist information:
 		/// </summary>
