@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using System.Xml;
 using PicasaUpload.UI;
 using PicasaUpload.GoogleApi;
+using Google.GData.Photos;
 
 namespace PicasaUpload
 {
@@ -80,7 +81,9 @@ namespace PicasaUpload
             try
             {
                 GoogleApi.Picasa picasa = new Picasa(SelectAlbum.APP_NAME, googleAuthKey);
-                picasa.PostPhoto(albumName, stream, filename);
+                PicasaEntry newPic = picasa.PostPhoto(albumName, stream, filename);
+
+                UpdatePhotoWithSession(sessionXml, newPic);
             }
             catch (Exception x)
             {
@@ -92,6 +95,7 @@ namespace PicasaUpload
 
 		}
 
+ 
 		/// <summary>
 		/// This function will display the login dialog box, and allow the user to select an album:
 		/// </summary>
@@ -261,6 +265,100 @@ namespace PicasaUpload
 			authKey.InnerText = authToken;
 			albumId.InnerText = selectedAlbumId;
 		}
+        /// <summary>
+        /// This function will take a new picasaEntry, and update any applicable fields from the sessionXml:
+        /// </summary>
+        /// <param name="sessionXml"></param>
+        /// <param name="newPic"></param>
+        private static void UpdatePhotoWithSession(System.Xml.XmlDocument sessionXml, PicasaEntry newPic)
+        {
+            /* session looks like so:
+             * <?xml version=\"1.0\"?>
+             * <PhotoGalleryPublishSession versionMajor=\"1\" versionMinor=\"0\">
+             *  <PublishParameters>
+             *      <MaxWidth>1600</MaxWidth>
+             *      <MaxHeight>1600</MaxHeight>
+             *  </PublishParameters>
+             *  <ItemSet>
+             *      <Item id=\"18811\">
+             *          <FullFilePath>D:\\house\\Pictures\\2009-05-09 - April &amp; May Misc\\100_2766.JPG</FullFilePath>
+             *          <OriginalFileName>100_2766.JPG</OriginalFileName>
+             *          <OriginalFileExtension>.JPG</OriginalFileExtension>
+             *          <PerceivedType>image</PerceivedType>
+             *          <Title>That's close!</Title>
+             *          <OriginalWidth>2832</OriginalWidth>
+             *          <OriginalHeight>1888</OriginalHeight>
+             *          <LengthMS>0</LengthMS>
+             *          <FileSize>1043545</FileSize>
+             *          <KeywordSet>
+             *              <Keyword>People/Jaxen</Keyword>
+             *              <Keyword>Pets/Toffee</Keyword>
+             *              <Keyword>Jaxen-April 2009</Keyword>
+             *          </KeywordSet>
+             *          <PeopleRegionSet>
+             *              <PersonRegion left=\"0.565345080763583\" top=\"3.52422907488987E-02\" width=\"0.244493392070485\" height=\"0.366740088105727\">Jaxen</PersonRegion>
+             *          </PeopleRegionSet>
+             *      </Item>
+             *  </ItemSet>
+             *  <GoogleSettings>
+             *      <AuthKey>Google auth key</AuthKey>
+             *      <AlbumId>album id</AlbumId>
+             *  </GoogleSettings>
+             * </PhotoGalleryPublishSession>
+             */
+
+            /* mappings:
+             * Title = summary
+             * KeywordSEt = Tags
+             * PeopleRegionSet = People Tags  //picasa doesn't support this yet!
+             */
+            bool changedPic = false;
+
+            //get our caption out of the session xml:
+            XmlNode sessionNode = sessionXml["PhotoGalleryPublishSession"];
+            XmlNode itemNode = sessionNode["ItemSet"]["Item"];
+
+            //title -> summary:
+            string summary = string.Empty;
+            XmlNode titleNode = itemNode["title"];
+            if (titleNode != null)
+            {
+                summary = titleNode.InnerText;
+
+                if (!string.IsNullOrEmpty(summary))
+                {
+                    newPic.Summary.Text = summary;
+                    changedPic = true;
+                }
+            }
+
+            //keywordset -> keywords
+            XmlNode keywordSet = itemNode["KeywordSet"];
+            if (keywordSet != null)
+            {
+                StringBuilder tags = new StringBuilder();
+                foreach (XmlNode child in keywordSet.ChildNodes)
+                {
+                    tags.Append(child.InnerText);
+                    tags.Append(",");
+                }
+
+                if (tags.Length > 0)
+                {
+                    //remove the last comma:
+                    tags.Length = tags.Length - 1;
+
+                    newPic.Media.Keywords.Value = tags.ToString();
+                    changedPic = true;
+                }
+            }
+
+            //if the picture changed, then update it:
+            if (changedPic)
+            {
+                newPic.Update();
+            }
+        }
 
 	}
 }
