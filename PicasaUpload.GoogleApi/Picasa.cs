@@ -126,9 +126,6 @@ namespace PicasaUpload.GoogleApi
 
 
         public string AuthenticationToken { get { return _picasaService.QueryAuthenticationToken(); } }
-
-
-
-
+    
     }
 }

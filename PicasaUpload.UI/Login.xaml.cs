@@ -32,6 +32,7 @@ namespace PicasaUpload.UI
 		public DateTime LastCheckForUpdate { get { return _lastCheckForUpdate; } set { _lastCheckForUpdate = value; } }
 		private bool _updateAtLastCheck = true;
 		public bool UpdateAtLastCheck { get { return _updateAtLastCheck; } set { _updateAtLastCheck = value; } }
+        public bool QuickUpload { get; set; }
 
         public LoginWindow(Picasa picasaApi)
         {
@@ -55,6 +56,13 @@ namespace PicasaUpload.UI
 
 		private void _cmdLogin_Click(object sender, RoutedEventArgs e)
 		{
+            Login();
+            QuickUpload = false;
+
+        }
+
+        private void Login()
+        {
             try
             {
                 this.Cursor = Cursors.Wait;
@@ -101,6 +109,20 @@ namespace PicasaUpload.UI
             {
                 _txtPassword.Focus();
             }
+
+        }
+
+        /// <summary>
+        /// When the user clicks this button, we want to log them in, and automatically post to the dropbox!
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void _cmdQuickUpload_Click(object sender, RoutedEventArgs e)
+        {
+            Login();
+            QuickUpload = true;
+
+
 
         }
 

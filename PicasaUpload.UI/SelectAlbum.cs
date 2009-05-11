@@ -43,31 +43,36 @@ namespace PicasaUpload.UI
                 return null;
             }
 
-            
 			string username = login.Username;
 			bool rememberUsername = login.RememberUsername;
 			lastUpdateCheck = login.LastCheckForUpdate;
 			updateAtLastCheck = login.UpdateAtLastCheck;
+
+            bool quickUpload = login.QuickUpload;
                         
             //Display UI for selecting album:
             PicasaEntry selectedAlbumEntry = null;
             SelectAlbumUserControl selectAlbum = new SelectAlbumUserControl(picasa, photoSize);
-			if (selectAlbum.ShowDialog() == false)
-			{
-				return null;
-			}
-            
-            //Create new album if necessary
-            selectedAlbumEntry = selectAlbum.SelectedAlbumEntry;
-            if (selectedAlbumEntry == null)
-			{
-                //we need to create a new album
-                PicasaEntry newAlbum = picasa.CreateAlbum(selectAlbum.AlbumName, selectAlbum.AlbumSummary, selectAlbum.AlbumRights);
-                selectedAlbumEntry = newAlbum;
-			}
+
+            if (!quickUpload)
+            {
+                if (selectAlbum.ShowDialog() == false)
+                {
+                    return null;
+                }
+
+                //Create new album if necessary
+                selectedAlbumEntry = selectAlbum.SelectedAlbumEntry;
+                if (selectedAlbumEntry == null)
+                {
+                    //we need to create a new album
+                    PicasaEntry newAlbum = picasa.CreateAlbum(selectAlbum.AlbumName, selectAlbum.AlbumSummary, selectAlbum.AlbumRights);
+                    selectedAlbumEntry = newAlbum;
+                }
+            }
 
             //Gather up what needs to be returned to the user:
-            return BuildSelectAlbumUIDatatable(rememberUsername, username, picasa.AuthenticationToken, selectedAlbumEntry, lastUpdateCheck, updateAtLastCheck, selectAlbum.PhotoSize);
+            return BuildSelectAlbumUIDatatable(rememberUsername, username, picasa.AuthenticationToken, selectedAlbumEntry, lastUpdateCheck, updateAtLastCheck, selectAlbum.PhotoSize, quickUpload);
         }
 
 
@@ -106,7 +111,7 @@ namespace PicasaUpload.UI
 			return true;
 		}
 
-        private static SelectAlbumDataSet BuildSelectAlbumUIDatatable(bool rememberUsername, string username, string authenticationToken, PicasaEntry selectedAlbumEntry, DateTime lastUpdateCheck, bool updateAtLastCheck, int photoSize)
+        private static SelectAlbumDataSet BuildSelectAlbumUIDatatable(bool rememberUsername, string username, string authenticationToken, PicasaEntry selectedAlbumEntry, DateTime lastUpdateCheck, bool updateAtLastCheck, int photoSize, bool quickUpload)
         {
             //this should be a strongly typed dataset:
             SelectAlbumDataSet ret = new SelectAlbumDataSet();
@@ -118,6 +123,7 @@ namespace PicasaUpload.UI
 			row.LastUpdateValue = updateAtLastCheck;
             row.SelectedAlbumEntry = selectedAlbumEntry;
             row.PhotoSize = photoSize;
+            row.UseDefaultAlbum = quickUpload;
 
             ret.SelectAlbumTable.Rows.Add(row);
 

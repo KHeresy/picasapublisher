@@ -123,7 +123,15 @@ namespace PicasaUpload
                 }
 
                 SelectAlbumDataSet.SelectAlbumTableRow selectedAlbumRow = (SelectAlbumDataSet.SelectAlbumTableRow)albumSelectedDS.SelectAlbumTable.Rows[0];
-                string albumId = selectedAlbumRow.SelectedAlbumEntry.Id.AbsoluteUri.Substring(selectedAlbumRow.SelectedAlbumEntry.Id.AbsoluteUri.LastIndexOf('/') + 1);
+                string albumId = string.Empty;
+                if (selectedAlbumRow.UseDefaultAlbum)
+                {
+                    albumId = "default";
+                }
+                else
+                {
+                    albumId = selectedAlbumRow.SelectedAlbumEntry.Id.AbsoluteUri.Substring(selectedAlbumRow.SelectedAlbumEntry.Id.AbsoluteUri.LastIndexOf('/') + 1);
+                }
                 SaveSessionInformation(sessionXml, selectedAlbumRow.AuthenticationToken, albumId, selectedAlbumRow.PhotoSize);
                 SavePersistInformation(persistXml, selectedAlbumRow.RememberUsername, selectedAlbumRow.Username, selectedAlbumRow.LastCheckForUpdate, selectedAlbumRow.LastUpdateValue, selectedAlbumRow.PhotoSize);
 

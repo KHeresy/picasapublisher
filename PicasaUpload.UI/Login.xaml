@@ -4,7 +4,7 @@
     x:Class="PicasaUpload.UI.LoginWindow" Height="316" FontFamily="./Fonts/#Segoe UI" FontSize="12" Loaded="UserControl_Loaded" Title="Picasa Publisher - Login" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" WindowStyle="ToolWindow" SizeToContent="WidthAndHeight">
     <Grid Height="279" Width="309" MinWidth="309" MinHeight="272">
         <Line X1="10" X2="299" Y1="115" Y2="115"  Stroke="#FF99A9E5" StrokeThickness="3" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round"></Line>
-    	<Button Margin="137,245,91,0" VerticalAlignment="Top" Content="Login" Height="23" Name="_cmdLogin" IsDefault="True" TabIndex="4" Click="_cmdLogin_Click" FontFamily="./Fonts/#Segoe UI" FontSize="12" />
+    	<Button Margin="52,0,0,11" VerticalAlignment="Bottom" Content="Login" Height="23" Name="_cmdLogin" IsDefault="True" TabIndex="4" Click="_cmdLogin_Click" FontFamily="./Fonts/#Segoe UI" FontSize="12" HorizontalAlignment="Left" Width="81" />
     	<PasswordBox  Margin="81,194,10,0" Password="" Name="_txtPassword" TabIndex="2" Height="22" VerticalAlignment="Top" FontSize="12" FontFamily="./Fonts/#Segoe UI" />
     	<TextBox Margin="81,166,10,0" Text="" TextWrapping="Wrap" Name="_txtUsername" TabIndex="1" FontFamily="./Fonts/#Segoe UI" FontSize="12" Height="22" VerticalAlignment="Top" />
     	<Label HorizontalAlignment="Left" Margin="35.63,166,0,0" Width="40.097" Content="Email:" Height="22" VerticalAlignment="Top" />
@@ -16,5 +16,6 @@
         <Button Height="23" Margin="57,81,150,0" Name="_cmdFeedback" VerticalAlignment="Top" Click="_cmdFeedback_Click" Background="#FFFFFFFF" FontFamily="./Fonts/#Segoe UI" FontSize="12">Leave Feedback</Button>
         <TextBox Height="32.8" Margin="13,41,11,0" Name="textBox1" VerticalAlignment="Top" IsReadOnly="True" AllowDrop="False" BorderThickness="0" HorizontalScrollBarVisibility="Disabled" TextWrapping="Wrap">If you have suggestions, or just find this tool useful, please Leave Feedback.</TextBox>
         <Button Background="White" FontFamily="./Fonts/#Segoe UI" FontSize="12" Height="23" Margin="12,12,10,0" Name="_cmdUpgrade" VerticalAlignment="Top" BorderBrush="#FFFF6361" Click="_cmdUpgrade_Click">New Version Available</Button>
+        <Button FontFamily="./Fonts/#Segoe UI" FontSize="12" Height="23" IsDefault="False" Margin="138,0,90,11" Name="_cmdQuickUpload" TabIndex="4" VerticalAlignment="Bottom" Click="_cmdQuickUpload_Click" ToolTip="Uploads to your Drop Box, using the same settings as the last upload.">Quick Upload</Button>
     </Grid>
 </Window>

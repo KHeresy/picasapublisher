@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BASE_URL" xml:space="preserve">
-    <value>http://picasapublisher.googlecode.com/svn/website/</value>
+    <value>http://www.mlsteeves.com/picasapublisher/</value>
   </data>
   <data name="CURRENT_VERSION_URL" xml:space="preserve">
     <value>current_version.txt</value>
