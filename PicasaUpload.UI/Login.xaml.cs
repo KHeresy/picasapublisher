@@ -67,12 +67,15 @@ namespace PicasaUpload.UI
             {
                 this.Cursor = Cursors.Wait;
                 _picasaApi.Login(Username, Password);
-                this.Cursor = Cursors.Arrow;
             }
             catch (Exception x)
             {
                 MessageBox.Show(x.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
+            }
+            finally
+            {
+                this.Cursor = Cursors.Arrow;
             }
 
             DialogResult = true;

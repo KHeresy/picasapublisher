@@ -18,6 +18,7 @@ namespace PicasaUpload.GoogleApi
         private const string DEFAULT_USER_ID = "default";
 
         private PicasaService _picasaService;
+        private string _appName;
 
         /// <summary>
         /// Logs the user into Google
@@ -27,9 +28,24 @@ namespace PicasaUpload.GoogleApi
         /// <returns>Returns the AuthenticationToken.</returns>
         public string Login(string username, string password)
         {
-            _picasaService.setUserCredentials(username, password);            
+            //We have to use our own authentication, because the 
+            //_picasaService does not allow use to log in with
+            //HOSTED account.
 
-            return _picasaService.QueryAuthenticationToken();
+            Authentication.AuthenticationResult result;
+            result = Authentication.Authenticate(Authentication.AccountTypes.HOSTED_OR_GOOGLE,
+                                                    username,
+                                                    password,
+                                                    Authentication.Services.PICASA_WEB_ALBUMS,
+                                                    _appName);
+            if (result.IsSuccessful)
+            {
+                _picasaService.SetAuthenticationToken(result.AuthKey.AuthorizationToken);
+                return result.AuthKey.AuthorizationToken;
+            }
+
+            //throw an exception with error as message:
+            throw new Exception(result.GetErrorMessage());
         }
 
         /// <summary>
@@ -106,6 +122,7 @@ namespace PicasaUpload.GoogleApi
         public Picasa( string appName)
         {
             _picasaService = new PicasaService(appName);
+            _appName = appName;
         }
         /// <summary>
         /// Constructor
