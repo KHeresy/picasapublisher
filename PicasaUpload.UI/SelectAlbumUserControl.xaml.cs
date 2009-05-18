@@ -10,6 +10,8 @@ using System.Windows.Navigation;
 using Google.GData.Photos;
 using PicasaUpload.GoogleApi;
 using System.Threading;
+using System.Text;
+using System.Net;
 
 namespace PicasaUpload.UI
 {
@@ -17,7 +19,8 @@ namespace PicasaUpload.UI
 	{
         
 		private Picasa _picasaApi;
-		public PicasaFeed Albums { get { return _albumSelectedUC.Albums; } set { _albumSelectedUC.Albums = value; } }
+		public PicasaFeed Albums { get { return _albumSelectedUC.Albums; } 
+                                   set { _albumSelectedUC.Albums = value; } }
 
         private int _photoSize;
         public int PhotoSize { get { return _photoSize; } set { _photoSize = value; } }
@@ -53,9 +56,30 @@ namespace PicasaUpload.UI
             {
                 LoadAlbumsCompleted(_picasaApi.GetAlbums());
             }
+            catch (Google.GData.Client.GDataRequestException reqEx)
+            {
+
+                StringBuilder error = new StringBuilder();
+
+                error.AppendLine(reqEx.Message);
+                WebException inner = reqEx.InnerException as WebException;
+                if (inner != null)
+                {
+                    //read the response, and that is our error:
+                    StreamReader sr = new StreamReader(inner.Response.GetResponseStream());
+                    string response = sr.ReadToEnd();
+
+                    error.AppendLine("");
+                    error.AppendLine("Response from server:");
+                    error.AppendLine(response);
+
+                    LoadAlbumsErrored(error.ToString());
+
+                }
+            }
             catch (Exception ex)
             {
-                LoadAlbumsErrored(ex);
+                LoadAlbumsErrored(ex.Message);
             }
         }
 
@@ -72,29 +96,37 @@ namespace PicasaUpload.UI
             else
             {
                 //no, so call invoke:
-                this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal, (LoadAlbumsCompletedDelegate)LoadAlbumsCompleted, albums);
+                this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal, 
+                                        (LoadAlbumsCompletedDelegate)LoadAlbumsCompleted, 
+                                        albums);
             }            
         }
 
-        private delegate void LoadAlbumsErroredDelegate(Exception ex);
-        private void LoadAlbumsErrored(Exception ex)
+        private delegate void LoadAlbumsErroredDelegate(string errorMessage);
+        private void LoadAlbumsErrored(string errorMessage)
         {
             try
             {
                 //are we good to change stuff
                 if (this.Dispatcher.Thread == Thread.CurrentThread)
                 {
-                    MessageBox.Show(string.Format("Error: {0}", ex.Message), "Error", MessageBoxButton.OK);
+                    MessageBox.Show(string.Format("Error: {0}", errorMessage), 
+                                    "Error", 
+                                    MessageBoxButton.OK);
                 }
                 else
                 {
                     //no, so call invoke:
-                    this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal, (LoadAlbumsErroredDelegate)LoadAlbumsErrored, ex);
+                    this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal, 
+                                           (LoadAlbumsErroredDelegate)LoadAlbumsErrored, 
+                                           errorMessage);
                 }
             }
             catch (Exception x)
             {
-                MessageBox.Show(string.Format("Error: {0}", x.Message), "Error", MessageBoxButton.OK);
+                MessageBox.Show(string.Format("Error: {0}", x.Message),
+                                "Error", 
+                                MessageBoxButton.OK);
             }
         }
 
