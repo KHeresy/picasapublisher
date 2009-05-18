@@ -47,21 +47,21 @@ namespace PicasaUpload.GoogleApi
 				switch (_errorCode)
 				{
 					case ErrorCodes.AccountDeleted:
-						return "The user account has been deleted.";
+						return "This user account has been deleted.";
 					case ErrorCodes.AccountDisabled:
-						return "The user account has been disabled.";
+						return "This user account has been disabled.";
 					case ErrorCodes.BadAuthentication:
 						return "The login request used a username or password that is not recognized.";
 					case ErrorCodes.CaptchaRequired:
 						return "A CAPTCHA is required.";
 					case ErrorCodes.NotVerified:
-						return "The account email address has not been verified. The user will need to access their Google account directly to resolve the issue before logging in using a non-Google application.";
+						return "This account email address has not been verified. You will need to access your Google account directly to resolve the issue before logging in using PicasaPublisher.";
 					case ErrorCodes.ServiceDisabled:
-						return "The user's access to the specified service has been disabled.";
+						return "Your access to the specified service has been disabled.";
 					case ErrorCodes.ServiceUnavailable:
 						return "The service is not available; try again later.";
 					case ErrorCodes.TermsNotAgreed:
-						return "The user has not agreed to terms. The user will need to access their Google account directly to resolve the issue before logging in using a non-Google application.";
+						return "You have not agreed to terms. You need to access your Google account directly to resolve the issue before logging in using PicasaPublisher.";
 					case ErrorCodes.None:
 						return "No Errors Reported.";
 					default:

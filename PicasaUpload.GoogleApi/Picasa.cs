@@ -32,20 +32,25 @@ namespace PicasaUpload.GoogleApi
             //_picasaService does not allow use to log in with
             //HOSTED account.
 
-            Authentication.AuthenticationResult result;
-            result = Authentication.Authenticate(Authentication.AccountTypes.HOSTED_OR_GOOGLE,
-                                                    username,
-                                                    password,
-                                                    Authentication.Services.PICASA_WEB_ALBUMS,
-                                                    _appName);
-            if (result.IsSuccessful)
-            {
-                _picasaService.SetAuthenticationToken(result.AuthKey.AuthorizationToken);
-                return result.AuthKey.AuthorizationToken;
-            }
+            //Authentication.AuthenticationResult result;
+            //result = Authentication.Authenticate(Authentication.AccountTypes.HOSTED_OR_GOOGLE,
+            //                                        username,
+            //                                        password,
+            //                                        Authentication.Services.PICASA_WEB_ALBUMS,
+            //                                        _appName);
+            //if (result.IsSuccessful)
+            //{
+            //    _picasaService.SetAuthenticationToken(result.AuthKey.AuthorizationToken);
+            //    return result.AuthKey.AuthorizationToken;
+            //}
 
-            //throw an exception with error as message:
-            throw new Exception(result.GetErrorMessage());
+            ////throw an exception with error as message:
+            //throw new Exception(result.GetErrorMessage());
+
+
+
+            _picasaService.setUserCredentials(username, password);
+            return _picasaService.QueryAuthenticationToken();
         }
 
         /// <summary>
@@ -121,7 +126,13 @@ namespace PicasaUpload.GoogleApi
         /// <param name="appName"></param>
         public Picasa( string appName)
         {
-            _picasaService = new PicasaService(appName);
+            GDataGAuthRequestFactory authFactory = new GDataGAuthRequestFactory("lh2", _appName);
+            authFactory.AccountType = "HOSTED_OR_GOOGLE";
+
+            _picasaService = new PicasaService(authFactory.ApplicationName);
+            _picasaService.RequestFactory = authFactory;
+
+
             _appName = appName;
         }
         /// <summary>
