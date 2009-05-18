@@ -11,7 +11,6 @@ using Google.GData.Photos;
 using PicasaUpload.GoogleApi;
 using System.Threading;
 using System.Text;
-using System.Net;
 
 namespace PicasaUpload.UI
 {

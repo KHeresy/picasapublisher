@@ -13,6 +13,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Diagnostics;
 using PicasaUpload.GoogleApi;
+using System.Threading;
 
 
 namespace PicasaUpload.UI
@@ -38,20 +39,6 @@ namespace PicasaUpload.UI
         {
             InitializeComponent();
 			_picasaApi = picasaApi;
-
-
-			_updateAtLastCheck = SelectAlbum.IsLatestVersion(ref _lastCheckForUpdate, _updateAtLastCheck);
-			if (_updateAtLastCheck)
-			{
-				_cmdUpgrade.Content = Properties.Resources.LATEST_VERSION_TEXT;
-				_cmdUpgrade.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString(Properties.Resources.LATEST_VERSION_COLOR));
-			}
-			else
-			{
-				_cmdUpgrade.Content = Properties.Resources.NEED_TO_UPGRADE_TEXT;
-				_cmdUpgrade.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString(Properties.Resources.NEED_TO_UPGRADE_COLOR));
-			}
-			
         }
 
 		private void _cmdLogin_Click(object sender, RoutedEventArgs e)
@@ -67,6 +54,15 @@ namespace PicasaUpload.UI
             {
                 this.Cursor = Cursors.Wait;
                 _picasaApi.Login(Username, Password);
+
+                //give this 2.5 seconds to survive, mostly for the
+                //next time the user runs:
+                if (_checkForUpdateThread != null && _checkForUpdateThread.IsAlive)
+                {
+                    Thread.Sleep(2500);
+                    _checkForUpdateThread.Abort();
+                }
+
             }
             catch (Exception x)
             {
@@ -113,7 +109,82 @@ namespace PicasaUpload.UI
                 _txtPassword.Focus();
             }
 
+            //The UI gets updated, with old value
+            UpdateNewVersionUI();
+
+            //get the value, check to see if it has changed:
+            CheckForUpdate_StartThread();
         }
+
+        #region "Thread stuff"
+
+        private Thread _checkForUpdateThread = null;
+
+        private void CheckForUpdate_StartThread()
+        {
+            //Start checking to see if there are any updates, 
+            ParameterizedThreadStart threadDelegate = new ParameterizedThreadStart(CheckForUpdate);
+            Thread _checkForUpdateThread = new Thread(threadDelegate);
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("lastCheckForUpdate", _lastCheckForUpdate);
+            parameters.Add("updateAtLastCheck", _updateAtLastCheck);
+            _checkForUpdateThread.Start(parameters);
+        }
+
+        private void CheckForUpdate(object parameter)
+        {
+            Dictionary<string, object> parameterDictionary = parameter as Dictionary<string, object>;
+            if (parameterDictionary == null)
+            {
+                return;
+            }
+            bool updateAtLastCheck = (bool)parameterDictionary["updateAtLastCheck"];
+            DateTime lastCheckForUpdate = (DateTime)parameterDictionary["lastCheckForUpdate"];
+			updateAtLastCheck = SelectAlbum.IsLatestVersion(ref lastCheckForUpdate, updateAtLastCheck);
+
+            CheckForUpdateCompleted(lastCheckForUpdate, updateAtLastCheck);
+        }
+
+        private delegate void CheckForUpdateCompletedDelegate(DateTime lastCheckForUpdate, bool updateAtLastCheck);
+        private void CheckForUpdateCompleted(DateTime lastCheckForUpdate, bool updateAtLastCheck)
+        {
+            if (this.Dispatcher.Thread == Thread.CurrentThread)
+            {
+                _updateAtLastCheck = updateAtLastCheck;
+                _lastCheckForUpdate = lastCheckForUpdate;
+                UpdateNewVersionUI();
+            }
+            else
+            {
+                this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
+                                        (CheckForUpdateCompletedDelegate)CheckForUpdateCompleted,
+                                        lastCheckForUpdate,
+                                        updateAtLastCheck);
+            }
+        }
+
+        private void UpdateNewVersionUI()
+        {
+            if (_lastCheckForUpdate == DateTime.MinValue)
+            {
+                _updateAtLastCheck = true;
+            }
+
+            if (_updateAtLastCheck)
+            {
+                _cmdUpgrade.Content = Properties.Resources.LATEST_VERSION_TEXT;
+                _cmdUpgrade.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString(Properties.Resources.LATEST_VERSION_COLOR));
+            }
+            else
+            {
+                _cmdUpgrade.Content = Properties.Resources.NEED_TO_UPGRADE_TEXT;
+                _cmdUpgrade.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString(Properties.Resources.NEED_TO_UPGRADE_COLOR));
+            }
+        }
+
+
+        #endregion
+
 
         /// <summary>
         /// When the user clicks this button, we want to log them in, and automatically post to the dropbox!
