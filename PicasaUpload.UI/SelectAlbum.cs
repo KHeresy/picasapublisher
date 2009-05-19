@@ -78,10 +78,8 @@ namespace PicasaUpload.UI
 
 		public static bool IsLatestVersion(ref DateTime lastCheckForUpdate, bool updateAtLastCheck)
 		{
-			if( (DateTime.Now - lastCheckForUpdate).TotalDays < 7.0 ) 
-			{
-				return updateAtLastCheck;
-			}
+            //Need to do this everytime, because when the user first upgrades, we don't want to wait for 7 days to 
+            //tell them that they have an old version.
 
 			//get current version
 			string currentVersionString = Assembly.GetAssembly(typeof(LoginWindow)).GetName().Version.ToString();
