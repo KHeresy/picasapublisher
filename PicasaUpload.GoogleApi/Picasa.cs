@@ -28,32 +28,11 @@ namespace PicasaUpload.GoogleApi
         /// <returns>Returns the AuthenticationToken.</returns>
         public string Login(string username, string password)
         {
-            //We have to use our own authentication, because the 
-            //_picasaService does not allow use to log in with
-            //HOSTED account.
-
-            //Authentication.AuthenticationResult result;
-            //result = Authentication.Authenticate(Authentication.AccountTypes.HOSTED_OR_GOOGLE,
-            //                                        username,
-            //                                        password,
-            //                                        Authentication.Services.PICASA_WEB_ALBUMS,
-            //                                        _appName);
-            //if (result.IsSuccessful)
-            //{
-            //    _picasaService.SetAuthenticationToken(result.AuthKey.AuthorizationToken);
-            //    return result.AuthKey.AuthorizationToken;
-            //}
-
-            ////throw an exception with error as message:
-            //throw new Exception(result.GetErrorMessage());
-
-
-
             _picasaService.setUserCredentials(username, password);
             return _picasaService.QueryAuthenticationToken();
         }
 
-        /// <summary>
+        /// <summary>Z
         /// Returns a PicasaFeed of the albums for the logged in user:
         /// </summary>
         /// <returns>The PicasaFeed of albums.</returns>
@@ -126,12 +105,15 @@ namespace PicasaUpload.GoogleApi
         /// <param name="appName"></param>
         public Picasa( string appName)
         {
+            //Not sure what the default is here, but sometimes (for test@mlsteeves.com), not
+            //setting the RequestFactory, will cause the login to not work.
             GDataGAuthRequestFactory authFactory = new GDataGAuthRequestFactory("lh2", _appName);
-            authFactory.AccountType = "HOSTED_OR_GOOGLE";
+            authFactory.AccountType = "GOOGLE_OR_HOSTED";
 
             _picasaService = new PicasaService(authFactory.ApplicationName);
             _picasaService.RequestFactory = authFactory;
 
+            //_picasaService = new PicasaService(appName);
 
             _appName = appName;
         }

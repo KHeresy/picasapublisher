@@ -217,9 +217,11 @@ namespace PicasaUpload.GoogleApi
 			req.ContentType = "application/x-www-form-urlencoded";
 			req.ContentLength = byteData.Length;
 
-			Stream requestStream = req.GetRequestStream();
-			requestStream.Write(byteData, 0, byteData.Length);
-			requestStream.Close();
+            using (Stream requestStream = req.GetRequestStream())
+            {
+                requestStream.Write(byteData, 0, byteData.Length);
+                requestStream.Close();
+            }
 
 			HttpWebResponse response = null;
 			try
@@ -232,8 +234,7 @@ namespace PicasaUpload.GoogleApi
 			}
 
 			AuthenticationResult result = new AuthenticationResult(response);
-			response.Close();
-			
+			response.Close();	
 
 			return result;
 		}
