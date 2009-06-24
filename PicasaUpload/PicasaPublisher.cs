@@ -350,7 +350,7 @@ namespace PicasaUpload
 
             //title -> summary:
             string summary = string.Empty;
-            XmlNode titleNode = itemNode["title"];
+            XmlNode titleNode = itemNode["Title"];
             if (titleNode != null)
             {
                 summary = titleNode.InnerText;
