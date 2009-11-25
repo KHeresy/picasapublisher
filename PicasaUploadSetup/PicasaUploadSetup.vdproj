@@ -16,19 +16,25 @@
         "Entry"
         {
         "MsmKey" = "8:_0111E412D3EAA5AC9EBC8ED9FE060EDE"
+        "OwnerKey" = "8:_684BA73EC97F13A77A22F70137C95365"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_0111E412D3EAA5AC9EBC8ED9FE060EDE"
         "OwnerKey" = "8:_8BD17138EE514583B5DB7D8EA40AEFCF"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_0111E412D3EAA5AC9EBC8ED9FE060EDE"
-        "OwnerKey" = "8:_B310B1C105307009105ED478D795CDA8"
+        "OwnerKey" = "8:_57FC261934CD63E466D10AFB6E6706A7"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_0111E412D3EAA5AC9EBC8ED9FE060EDE"
-        "OwnerKey" = "8:_D05B659DD0897597845ECB7D88DE06AD"
+        "MsmKey" = "8:_1D21EC9F8D319A3193DE1A467D65C9FD"
+        "OwnerKey" = "8:_684BA73EC97F13A77A22F70137C95365"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -40,19 +46,7 @@
         "Entry"
         {
         "MsmKey" = "8:_1D21EC9F8D319A3193DE1A467D65C9FD"
-        "OwnerKey" = "8:_B310B1C105307009105ED478D795CDA8"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_1D21EC9F8D319A3193DE1A467D65C9FD"
-        "OwnerKey" = "8:_D05B659DD0897597845ECB7D88DE06AD"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_1D21EC9F8D319A3193DE1A467D65C9FD"
-        "OwnerKey" = "8:_0111E412D3EAA5AC9EBC8ED9FE060EDE"
+        "OwnerKey" = "8:_57FC261934CD63E466D10AFB6E6706A7"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -63,14 +57,26 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_6975852FB8FA1857F8B03849B1DD62B3"
+        "MsmKey" = "8:_1D21EC9F8D319A3193DE1A467D65C9FD"
+        "OwnerKey" = "8:_0111E412D3EAA5AC9EBC8ED9FE060EDE"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_57FC261934CD63E466D10AFB6E6706A7"
         "OwnerKey" = "8:_8BD17138EE514583B5DB7D8EA40AEFCF"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_6975852FB8FA1857F8B03849B1DD62B3"
-        "OwnerKey" = "8:_B310B1C105307009105ED478D795CDA8"
+        "MsmKey" = "8:_684BA73EC97F13A77A22F70137C95365"
+        "OwnerKey" = "8:_8BD17138EE514583B5DB7D8EA40AEFCF"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_684BA73EC97F13A77A22F70137C95365"
+        "OwnerKey" = "8:_57FC261934CD63E466D10AFB6E6706A7"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -81,32 +87,26 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_6975852FB8FA1857F8B03849B1DD62B3"
+        "OwnerKey" = "8:_8BD17138EE514583B5DB7D8EA40AEFCF"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_6975852FB8FA1857F8B03849B1DD62B3"
+        "OwnerKey" = "8:_57FC261934CD63E466D10AFB6E6706A7"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_8BD17138EE514583B5DB7D8EA40AEFCF"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_B310B1C105307009105ED478D795CDA8"
-        "OwnerKey" = "8:_8BD17138EE514583B5DB7D8EA40AEFCF"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_CE89F83115204D14A215F614D37A14E6"
         "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_D05B659DD0897597845ECB7D88DE06AD"
-        "OwnerKey" = "8:_8BD17138EE514583B5DB7D8EA40AEFCF"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_D05B659DD0897597845ECB7D88DE06AD"
-        "OwnerKey" = "8:_B310B1C105307009105ED478D795CDA8"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -130,19 +130,25 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_B310B1C105307009105ED478D795CDA8"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_D05B659DD0897597845ECB7D88DE06AD"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_FCA448B362DBEFB9396E699D5D7B31DB"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_D54185E44803DF4C755F3B943044279A"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_57FC261934CD63E466D10AFB6E6706A7"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_684BA73EC97F13A77A22F70137C95365"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -161,12 +167,6 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_1D21EC9F8D319A3193DE1A467D65C9FD"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_D54185E44803DF4C755F3B943044279A"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -336,20 +336,20 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_6975852FB8FA1857F8B03849B1DD62B3"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_57FC261934CD63E466D10AFB6E6706A7"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Google.GData.Extensions, Version=1.4.0.2, Culture=neutral, PublicKeyToken=0b4c5df2ebf20876, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:PicasaUpload.UI, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_6975852FB8FA1857F8B03849B1DD62B3"
+                    "_57FC261934CD63E466D10AFB6E6706A7"
                     {
-                    "Name" = "8:Google.GData.Extensions.dll"
+                    "Name" = "8:PicasaUpload.UI.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:Google.GData.Extensions.dll"
+            "SourcePath" = "8:PicasaUpload.UI.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_14139CA6DCE544819B88F07C41F80D32"
@@ -367,20 +367,51 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_B310B1C105307009105ED478D795CDA8"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_684BA73EC97F13A77A22F70137C95365"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:PicasaUpload.UI, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:PicasaUpload.GoogleApi, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_B310B1C105307009105ED478D795CDA8"
+                    "_684BA73EC97F13A77A22F70137C95365"
                     {
-                    "Name" = "8:PicasaUpload.UI.dll"
+                    "Name" = "8:PicasaUpload.GoogleApi.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:PicasaUpload.UI.dll"
+            "SourcePath" = "8:PicasaUpload.GoogleApi.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_14139CA6DCE544819B88F07C41F80D32"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_6975852FB8FA1857F8B03849B1DD62B3"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Google.GData.Extensions, Version=1.4.0.2, Culture=neutral, PublicKeyToken=0b4c5df2ebf20876, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_6975852FB8FA1857F8B03849B1DD62B3"
+                    {
+                    "Name" = "8:Google.GData.Extensions.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Google.GData.Extensions.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_14139CA6DCE544819B88F07C41F80D32"
@@ -416,37 +447,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_D05B659DD0897597845ECB7D88DE06AD"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:PicasaUpload.GoogleApi, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_D05B659DD0897597845ECB7D88DE06AD"
-                    {
-                    "Name" = "8:PicasaUpload.GoogleApi.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:PicasaUpload.GoogleApi.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_14139CA6DCE544819B88F07C41F80D32"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_D54185E44803DF4C755F3B943044279A"
@@ -567,14 +567,14 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Picasa Web Albums Live Publisher"
-        "ProductCode" = "8:{50476EBA-BBEE-4B56-96EB-4D1D0224D35C}"
-        "PackageCode" = "8:{C217BCF3-F4C9-4358-8355-860479271A6F}"
+        "ProductCode" = "8:{B09EE82F-AC81-4051-AB3A-5281DC4400E8}"
+        "PackageCode" = "8:{D1637E81-3708-4A5C-A700-948E9F5A6674}"
         "UpgradeCode" = "8:{C8659843-908A-4224-917F-D3DDE0484F76}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:2.1.0"
+        "ProductVersion" = "8:2.2.0"
         "Manufacturer" = "8:PicasaWebPublisher"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -1215,7 +1215,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_8BD17138EE514583B5DB7D8EA40AEFCF"
             {
-            "SourcePath" = "8:..\\PicasaUpload\\obj\\Release\\PicasaUpload.dll"
+            "SourcePath" = "8:..\\PicasaUpload\\obj\\Debug\\PicasaUpload.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_14139CA6DCE544819B88F07C41F80D32"
