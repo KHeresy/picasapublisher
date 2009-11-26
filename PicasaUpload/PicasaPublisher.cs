@@ -96,7 +96,7 @@ namespace PicasaUpload
                     albumUrlNode.InnerText = albumUrl;
                 }
 
-                UpdatePhotoWithSession(sessionXml, newPic);
+                UpdatePhotoWithSession(itemPublishing, newPic);
             }
             catch (Exception x)
             {
@@ -299,7 +299,7 @@ namespace PicasaUpload
         /// </summary>
         /// <param name="sessionXml"></param>
         /// <param name="newPic"></param>
-        private static void UpdatePhotoWithSession(System.Xml.XmlDocument sessionXml, PicasaEntry newPic)
+        private static void UpdatePhotoWithSession(System.Xml.XmlNode itemNode, PicasaEntry newPic)
         {
             /* session looks like so:
              * <?xml version=\"1.0\"?>
@@ -342,15 +342,6 @@ namespace PicasaUpload
              * PeopleRegionSet = People Tags  //picasa doesn't support this yet!
              */
             bool changedPic = false;
-
-            //weird bug - caption not being uploaded, as soon as I messageBox the 
-            //innerxml, everything works!  This seems to fix the problem, but I HATE that!
-            string throwAway = sessionXml.InnerXml;
-
-
-            //get our caption out of the session xml:
-            XmlNode sessionNode = sessionXml["PhotoGalleryPublishSession"];
-            XmlNode itemNode = sessionNode["ItemSet"]["Item"];
 
             //title -> summary:
             string summary = string.Empty;
