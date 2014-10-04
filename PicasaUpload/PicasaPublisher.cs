@@ -8,6 +8,8 @@ using PicasaUpload.UI;
 using PicasaUpload.GoogleApi;
 using Google.GData.Photos;
 using System.Diagnostics;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 
 namespace PicasaUpload
@@ -72,6 +74,39 @@ namespace PicasaUpload
 		/// <returns></returns>
 		public bool PublishItem(System.Windows.Forms.IWin32Window parentWindow, string mediaObjectId, System.IO.Stream stream, System.Xml.XmlDocument sessionXml, Microsoft.WindowsLive.PublishPlugins.IPublishProperties publishProperties, Microsoft.WindowsLive.PublishPlugins.IPublishProgressCallback callback, System.Threading.EventWaitHandle cancelEvent)
 		{
+			Image mImg = Image.FromStream(stream);
+
+			int iPhotoSize = 2048;
+			// check size
+			if (mImg.Width > iPhotoSize || mImg.Height > iPhotoSize )
+			{
+				// compute new size
+				int nWidth, nHeight;
+				if(mImg.Width>mImg.Height)
+				{
+					nWidth = iPhotoSize;
+					nHeight = mImg.Height * iPhotoSize / mImg.Width;
+				}
+				else
+				{
+					nHeight = iPhotoSize;
+					nWidth = mImg.Width * iPhotoSize / mImg.Height;
+				}
+
+				// resize
+				Image resizedImage = new Bitmap(mImg, new Size(nWidth, nHeight));
+
+				// copy all property
+				foreach( int idx in mImg.PropertyIdList )
+					resizedImage.SetPropertyItem(mImg.GetPropertyItem(idx));
+
+				// save to stream
+				System.IO.MemoryStream ms = new System.IO.MemoryStream();
+				resizedImage.Save(ms, ImageFormat.Jpeg);
+				stream = ms;
+				stream.Seek(0, System.IO.SeekOrigin.Begin);
+			}
+
 			//get our filename out of the sessionXml
 			XmlNode itemPublishing = sessionXml.SelectSingleNode(string.Format("//PhotoGalleryPublishSession/ItemSet/Item[@id=\"{0}\"]",mediaObjectId));
 
