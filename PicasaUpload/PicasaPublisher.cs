@@ -19,6 +19,8 @@ namespace PicasaUpload
 	/// </summary>
 	public class PicasaPublisher : Microsoft.WindowsLive.PublishPlugins.IPublishPlugin
 	{
+		private int iPhotoSize = 2048;
+
 		#region constants
 		private const string PERSIST_NODE_NAME = "PicasaPublisherPersistInfo";
 		private const string REMEMBER_USER_EMAIL_NODE_NAME = "rememberUserEmail";
@@ -32,7 +34,6 @@ namespace PicasaUpload
 		private const string AUTH_KEY_NODE_NAME = "AuthKey";
 		private const string SELECTED_ALBUM_NODE_NAME = "AlbumId";
 		private const string DATE_FORMAT = "yyyy-MM-dd";
-
 
 		#endregion
 		/*
@@ -74,36 +75,38 @@ namespace PicasaUpload
 		/// <returns></returns>
 		public bool PublishItem(System.Windows.Forms.IWin32Window parentWindow, string mediaObjectId, System.IO.Stream stream, System.Xml.XmlDocument sessionXml, Microsoft.WindowsLive.PublishPlugins.IPublishProperties publishProperties, Microsoft.WindowsLive.PublishPlugins.IPublishProgressCallback callback, System.Threading.EventWaitHandle cancelEvent)
 		{
-			Image mImg = Image.FromStream(stream);
-
-			int iPhotoSize = 2048;
-			// check size
-			if (mImg.Width > iPhotoSize || mImg.Height > iPhotoSize )
+			iPhotoSize = int.Parse(sessionXml.SelectSingleNode("//MaxWidth").InnerText);
+			if( iPhotoSize > 0 )
 			{
-				// compute new size
-				int nWidth, nHeight;
-				if(mImg.Width>mImg.Height)
+				Image mImg = Image.FromStream(stream);
+				// check size
+				if (mImg.Width > iPhotoSize || mImg.Height > iPhotoSize)
 				{
-					nWidth = iPhotoSize;
-					nHeight = mImg.Height * iPhotoSize / mImg.Width;
+					// compute new size
+					int nWidth, nHeight;
+					if (mImg.Width > mImg.Height)
+					{
+						nWidth = iPhotoSize;
+						nHeight = mImg.Height * iPhotoSize / mImg.Width;
+					}
+					else
+					{
+						nHeight = iPhotoSize;
+						nWidth = mImg.Width * iPhotoSize / mImg.Height;
+					}
+
+					// resize
+					Image resizedImage = new Bitmap(mImg, new Size(nWidth, nHeight));
+
+					// copy all property
+					foreach (int idx in mImg.PropertyIdList)
+						resizedImage.SetPropertyItem(mImg.GetPropertyItem(idx));
+
+					// save to stream
+					System.IO.MemoryStream ms = new System.IO.MemoryStream();
+					resizedImage.Save(ms, ImageFormat.Jpeg);
+					stream = ms;
 				}
-				else
-				{
-					nHeight = iPhotoSize;
-					nWidth = mImg.Width * iPhotoSize / mImg.Height;
-				}
-
-				// resize
-				Image resizedImage = new Bitmap(mImg, new Size(nWidth, nHeight));
-
-				// copy all property
-				foreach( int idx in mImg.PropertyIdList )
-					resizedImage.SetPropertyItem(mImg.GetPropertyItem(idx));
-
-				// save to stream
-				System.IO.MemoryStream ms = new System.IO.MemoryStream();
-				resizedImage.Save(ms, ImageFormat.Jpeg);
-				stream = ms;
 				stream.Seek(0, System.IO.SeekOrigin.Begin);
 			}
 
